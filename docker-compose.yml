@@ -31,7 +31,8 @@ services:
       mysql:
         condition: service_healthy
     volumes:
-      - ./src/backend:/app
+      - ./backend:/app
+      - ./backend/uploads:/app/uploads
       - /app/node_modules
     command: sh -c "npm install && npm run migrate && npm run seed:public && npm run dev"
     healthcheck:

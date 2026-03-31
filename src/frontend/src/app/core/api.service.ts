@@ -155,4 +155,10 @@ export class ApiService {
       headers: this.authHeader()
     });
   }
+  uploadListingImage(file: File) {
+    const formData = new FormData();
+    formData.append('image', file);
+
+    return this.http.post('/api/uploads/listing-image', formData);
+  }
 }

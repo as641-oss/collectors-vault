@@ -9,6 +9,8 @@ import favoritesRoutes from './routes/favorites.js';
 import ordersRoutes from './routes/orders.js';
 import usersRoutes from './routes/users.js';
 import adminRoutes from './routes/admin.js';
+import path from 'path';
+import uploadsRoutes from './routes/upload.js';
 
 export function createApp() {
   const app = express();
@@ -23,6 +25,16 @@ export function createApp() {
   app.use('/api/orders', ordersRoutes);
   app.use('/api/users', usersRoutes);
   app.use('/api/admin', adminRoutes);
+  app.use('/uploads', express.static(path.resolve('uploads')));
+  app.use('/api/uploads', uploadsRoutes);
+
+  app.use((err, _req, res, _next) => {
+  if (err?.message) {
+    return res.status(400).json({ message: err.message });
+  }
+
+    return res.status(500).json({ message: 'Internal server error.' });
+  });
 
   app.use((_req, res) => res.status(404).json({ message: 'Not found' }));
   return app;

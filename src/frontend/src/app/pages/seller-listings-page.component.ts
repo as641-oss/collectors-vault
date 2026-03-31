@@ -79,13 +79,29 @@ import { ApiService } from '../core/api.service';
               </div>
 
               <div class="col-md-6">
-                <label class="form-label">Image URL</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  [(ngModel)]="form.coverImageUrl"
-                  name="coverImageUrl"
-                />
+                <label class="form-label">Listing Image</label>
+                  <input
+                    type="file"
+                    class="form-control"
+                    accept=".jpg,.jpeg,.png,.webp"
+                    (change)="onImageSelected($event)"
+                  />
+
+                  <div *ngIf="imageUploading" class="form-text">
+                    Uploading image...
+                  </div>
+
+                  <div *ngIf="imageError" class="text-danger mt-1">
+                    {{ imageError }}
+                  </div>
+
+                  <img
+                    *ngIf="form.coverImageUrl"
+                    [src]="form.coverImageUrl"
+                    alt="Listing preview"
+                    class="img-thumbnail mt-3"
+                    style="max-width: 220px;"
+                  />
               </div>
 
               <div class="col-12">
@@ -288,6 +304,8 @@ export class SellerListingsPageComponent {
   errorMessage = '';
   selectedTab: 'active' | 'inactive' = 'active';
   editingId: number | null = null;
+  imageUploading = false;
+  imageError = '';
 
   form = {
     categoryId: '',
@@ -339,49 +357,62 @@ export class SellerListingsPageComponent {
   }
 
   submitListing() {
-    this.successMessage = '';
-    this.errorMessage = '';
+  this.successMessage = '';
+  this.errorMessage = '';
 
-    const payload = {
-      categoryId: Number(this.form.categoryId),
-      title: this.form.title.trim(),
-      slug: this.slugify(this.form.title),
-      description: this.form.description.trim(),
-      itemType: this.form.itemType.trim(),
-      brandOrSeries: this.form.brandOrSeries.trim(),
-      conditionLabel: this.form.conditionLabel.trim(),
-      price: Number(this.form.price),
-      shippingFee: Number(this.form.shippingFee),
-      quantityAvailable: Number(this.form.quantityAvailable),
-      coverImageUrl:
-        this.form.coverImageUrl?.trim() || 'https://placehold.co/600x400?text=Collectible',
-      status: 'active'
-    };
+  console.log('FORM BEFORE SUBMIT', this.form);
 
-    this.submitting = true;
-
-    const request = this.editingId
-      ? this.api.updateListing(this.editingId, payload)
-      : this.api.createListing(payload);
-
-    request.subscribe({
-      next: () => {
-        this.successMessage = this.editingId
-          ? 'Listing updated successfully.'
-          : 'Listing created successfully.';
-
-        this.editingId = null;
-        this.resetForm();
-        this.loadMyListings();
-        this.submitting = false;
-      },
-      error: (err) => {
-        console.error(err);
-        this.errorMessage = err?.error?.message || 'Could not save listing.';
-        this.submitting = false;
-      }
-    });
+  if (!this.form.categoryId) {
+    this.errorMessage = 'Please select a category.';
+    return;
   }
+
+  if (!this.form.conditionLabel?.trim()) {
+    this.errorMessage = 'Please enter a condition.';
+    return;
+  }
+
+  const payload = {
+    categoryId: Number(this.form.categoryId),
+    title: this.form.title.trim(),
+    slug: this.slugify(this.form.title),
+    description: this.form.description.trim(),
+    itemType: this.form.itemType.trim(),
+    brandOrSeries: this.form.brandOrSeries.trim(),
+    conditionLabel: this.form.conditionLabel.trim(),
+    price: Number(this.form.price),
+    shippingFee: Number(this.form.shippingFee),
+    quantityAvailable: Number(this.form.quantityAvailable),
+    coverImageUrl: this.form.coverImageUrl.trim(),
+    status: 'active'
+  };
+
+  console.log('PAYLOAD', payload);
+
+  this.submitting = true;
+
+  const request = this.editingId
+    ? this.api.updateListing(this.editingId, payload)
+    : this.api.createListing(payload);
+
+  request.subscribe({
+    next: () => {
+      this.successMessage = this.editingId
+        ? 'Listing updated successfully.'
+        : 'Listing created successfully.';
+
+      this.editingId = null;
+      this.resetForm();
+      this.loadMyListings();
+      this.submitting = false;
+    },
+    error: (err) => {
+      console.error(err);
+      this.errorMessage = err?.error?.message || 'Could not save listing.';
+      this.submitting = false;
+    }
+  });
+}
 
   get filteredListings() {
     return this.listings.filter((item) => item.status === this.selectedTab);
@@ -445,5 +476,26 @@ export class SellerListingsPageComponent {
       quantityAvailable: 1,
       coverImageUrl: ''
     };
+  }
+
+  onImageSelected(event: Event) {
+  const input = event.target as HTMLInputElement;
+  const file = input.files?.[0];
+
+  if (!file) return;
+
+  this.imageUploading = true;
+  this.imageError = '';
+
+  this.api.uploadListingImage(file).subscribe({
+    next: (res: any) => {
+      this.form.coverImageUrl = res.imageUrl;
+      this.imageUploading = false;
+    },
+    error: (err) => {
+      this.imageUploading = false;
+      this.imageError = err?.error?.message || 'Image upload failed.';
+    }
+    });
   }
 }
