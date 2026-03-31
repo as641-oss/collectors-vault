@@ -1,0 +1,37 @@
+body {
+  background: #f8f5ee;
+  color: #1d2433;
+}
+.navbar-brand { font-weight: 700; }
+.hero-gradient {
+  background: linear-gradient(135deg, #111827 0%, #243b53 100%) !important;
+  color: #f8f5ee  !important;
+}
+.gold-btn {
+  background-color: #d4af37 !important;
+  color: #111 !important;
+  border: none !important;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.gold-btn:hover {
+  background-color: #b8932f !important;
+  color: #111 !important;
+}
+
+.listing-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.listing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(17, 24, 39, 0.12);
+}
+
+.card-shadow {
+  box-shadow: 0 8px 20px rgba(17, 24, 39, 0.08)  !important;
+}

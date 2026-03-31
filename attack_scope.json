@@ -1,0 +1,52 @@
+{
+  "app": "collectors-vault-baseapp",
+  "version": 1,
+  "in_scope": {
+    "routes": [
+      "/health",
+      "/api/auth/*",
+      "/api/categories*",
+      "/api/listings*",
+      "/api/orders*",
+      "/api/users/profile",
+      "/api/admin/*"
+    ],
+    "roles": [
+      "buyer",
+      "seller",
+      "admin"
+    ],
+    "components": [
+      "angular-frontend",
+      "express-api",
+      "mysql-schema",
+      "nginx-proxy",
+      "jwt-auth"
+    ],
+    "vulnerability_vectors": [
+      "authentication",
+      "authorization",
+      "jwt token handling",
+      "role-based route protection",
+      "input validation",
+      "sql query safety",
+      "seed-data credential isolation",
+      "api access control"
+    ]
+  },
+  "out_of_scope": {
+    "routes": [
+      "/api/debug/*"
+    ],
+    "components": [
+      "third-party payment gateways",
+      "email delivery",
+      "external object storage"
+    ]
+  },
+  "notes": [
+    "Public and private seeds use identical schema with different seeded records.",
+    "Admin, seller, and buyer roles are tested separately.",
+    "Scope intended for base app functional and security review."
+  ]
+}
