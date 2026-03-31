@@ -17,12 +17,14 @@ export class ApiService {
     return this.http.get<any[]>(`${this.base}/categories`);
   }
 
-  getListings(search = '', category = '') {
-    let params = new HttpParams();
-    if (search) params = params.set('search', search);
-    if (category) params = params.set('category', category);
-    return this.http.get<any[]>(`${this.base}/listings`, { params });
-  }
+  getListings(search = '', category = '', sort = '') {
+  let params = new HttpParams();
+
+  if (search) params = params.set('search', search);
+  if (category) params = params.set('category', category);
+  if (sort) params = params.set('sort', sort);
+  return this.http.get<any[]>(`${this.base}/listings`, { params });
+}
 
   getListingBySlug(slug: string) {
     return this.http.get<any>(`${this.base}/listings/${slug}`);

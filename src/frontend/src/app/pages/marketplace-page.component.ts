@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ApiService } from '../core/api.service';
 
 @Component({
@@ -17,17 +17,45 @@ import { ApiService } from '../core/api.service';
 
     <section class="container py-4">
       <div class="row g-3 mb-4">
-        <div class="col-md-6">
-          <input data-testid="search-input" class="form-control" [(ngModel)]="search" placeholder="Search title, series, description">
+        <div class="col-md-5">
+          <input
+            data-testid="search-input"
+            class="form-control"
+            [(ngModel)]="search"
+            name="search"
+            placeholder="Search title, series, description"
+            (keyup.enter)="applyFilters()"
+          >
         </div>
-        <div class="col-md-4">
-          <select class="form-select" [(ngModel)]="category">
+
+        <div class="col-md-3">
+          <select
+            class="form-select"
+            [(ngModel)]="category"
+            name="category"
+            (change)="applyFilters()"
+          >
             <option value="">All categories</option>
             <option *ngFor="let c of categories" [value]="c.slug">{{ c.name }}</option>
           </select>
         </div>
+
+        <div class="col-md-2">
+          <select
+            class="form-select"
+            [(ngModel)]="sort"
+            name="sort"
+            (change)="applyFilters()"
+          >
+            <option value="">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="price_asc">Price Low to High</option>
+            <option value="price_desc">Price High to Low</option>
+          </select>
+        </div>
+
         <div class="col-md-2 d-grid">
-          <button class="btn gold-btn" (click)="load()">Search</button>
+          <button class="btn gold-btn" (click)="applyFilters()">Search</button>
         </div>
       </div>
 
@@ -57,25 +85,50 @@ import { ApiService } from '../core/api.service';
           </a>
         </div>
       </div>
+
       <ng-template #empty>
-        <div data-testid="search-empty-state" class="alert alert-light border">No listings found.</div>
+        <div data-testid="search-empty-state" class="alert alert-light border">
+          No listings found.
+        </div>
       </ng-template>
     </section>
   `
 })
 export class MarketplacePageComponent {
   private api = inject(ApiService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+
   search = '';
   category = '';
+  sort = '';
   categories: any[] = [];
   listings: any[] = [];
 
   constructor() {
     this.api.getCategories().subscribe((data) => (this.categories = data));
-    this.load();
+
+    this.route.queryParamMap.subscribe((params) => {
+      this.search = params.get('search') || '';
+      this.category = params.get('category') || '';
+      this.sort = params.get('sort') || '';
+      this.load();
+    });
+  }
+
+  applyFilters() {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        search: this.search || null,
+        category: this.category || null,
+        sort: this.sort || null
+      }
+    });
   }
 
   load() {
-    this.api.getListings(this.search, this.category).subscribe((data) => (this.listings = data));
+    this.api.getListings(this.search, this.category, this.sort)
+      .subscribe((data) => (this.listings = data));
   }
 }

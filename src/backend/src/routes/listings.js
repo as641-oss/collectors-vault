@@ -5,8 +5,13 @@ import { requireAuth, requireRole } from '../middleware/auth.js';
 const router = Router();
 
 router.get('/', async (req, res) => {
-  const search = req.query.search ? `%${req.query.search}%` : null;
-  const category = req.query.category || null;
+  const rawSearch = typeof req.query.search === 'string' ? req.query.search.trim() : '';
+  const rawCategory = typeof req.query.category === 'string' ? req.query.category.trim() : '';
+  const rawSort = typeof req.query.sort === 'string' ? req.query.sort.trim() : '';
+
+  const search = rawSearch ? `%${rawSearch}%` : null;
+  const category = rawCategory || null;
+
   let sql = `SELECT l.id, l.title, l.slug, l.description, l.item_type AS itemType, l.brand_or_series AS brandOrSeries,
                     l.condition_label AS conditionLabel, l.price, l.shipping_fee AS shippingFee,
                     l.quantity_available AS quantityAvailable, l.status, l.cover_image_url AS coverImageUrl,
@@ -15,19 +20,43 @@ router.get('/', async (req, res) => {
              JOIN categories c ON c.id = l.category_id
              JOIN users u ON u.id = l.seller_id
              WHERE l.status = 'active'`;
+
   const params = {};
+
   if (search) {
-    sql += ` AND (l.title LIKE :search OR l.brand_or_series LIKE :search OR l.description LIKE :search)`;
+    sql += ` AND (
+      COALESCE(l.title, '') LIKE :search
+      OR COALESCE(l.brand_or_series, '') LIKE :search
+      OR COALESCE(l.description, '') LIKE :search
+    )`;
     params.search = search;
   }
+
   if (category) {
     sql += ` AND c.slug = :category`;
     params.category = category;
   }
-  sql += ' ORDER BY l.created_at DESC';
+
+  switch (rawSort) {
+    case 'price_asc':
+      sql += ' ORDER BY l.price ASC';
+      break;
+    case 'price_desc':
+      sql += ' ORDER BY l.price DESC';
+      break;
+    case 'oldest':
+      sql += ' ORDER BY l.created_at ASC';
+      break;
+    case 'newest':
+    default:
+      sql += ' ORDER BY l.created_at DESC';
+      break;
+  }
+
   const rows = await query(sql, params);
   res.json(rows);
 });
+
 
 router.get('/mine/list', requireAuth, requireRole('seller', 'admin'), async (req, res) => {
   const rows = await query(
@@ -51,23 +80,6 @@ router.get('/mine/list', requireAuth, requireRole('seller', 'admin'), async (req
     { sellerId: req.user.sub }
   );
   res.json(rows);
-});
-
-router.get('/:slug', async (req, res) => {
-  const rows = await query(
-    `SELECT l.id, l.title, l.slug, l.description, l.item_type AS itemType, l.brand_or_series AS brandOrSeries,
-            l.condition_label AS conditionLabel, l.grading_company AS gradingCompany, l.grade_value AS gradeValue,
-            l.price, l.shipping_fee AS shippingFee, l.quantity_available AS quantityAvailable, l.status,
-            l.cover_image_url AS coverImageUrl, c.name AS categoryName,
-            CONCAT(u.first_name, ' ', u.last_name) AS sellerName, u.id AS sellerId
-     FROM listings l
-     JOIN categories c ON c.id = l.category_id
-     JOIN users u ON u.id = l.seller_id
-     WHERE l.slug = :slug LIMIT 1`,
-    { slug: req.params.slug }
-  );
-  if (!rows.length) return res.status(404).json({ message: 'Listing not found' });
-  res.json(rows[0]);
 });
 
 router.post('/', requireAuth, requireRole('seller', 'admin'), async (req, res) => {
