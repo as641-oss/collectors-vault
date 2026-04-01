@@ -151,6 +151,27 @@ import { ApiService } from '../core/api.service';
           </ng-container>
         </tbody>
       </table>
+      <div class="d-flex justify-content-between align-items-center mt-3 flex-wrap">
+        <button
+          class="btn btn-outline-secondary"
+          (click)="goToPreviousPage()"
+          [disabled]="page === 1"
+        >
+          Previous
+        </button>
+
+        <div class="text-muted">
+          Page {{ page }} of {{ totalPages }} · {{ total }} total orders
+        </div>
+
+        <button
+          class="btn btn-outline-secondary"
+          (click)="goToNextPage()"
+          [disabled]="page === totalPages"
+        >
+          Next
+        </button>
+      </div>
     </div>
   </section>
     `
@@ -164,6 +185,10 @@ export class SellerOrdersPageComponent implements OnInit {
   savingOrderId: number | string | null = null;
   selectedOrderId: number | string | null = null;
   loadingDetailsId: number | string | null = null;
+  page = 1;
+  limit = 5;
+  total = 0;
+  totalPages = 1;
 
   statuses = ['paid', 'shipped', 'delivered', 'completed', 'cancelled'];
 
@@ -175,14 +200,22 @@ export class SellerOrdersPageComponent implements OnInit {
     this.loading = true;
     this.error = '';
 
-    this.api.getSellerOrders().subscribe({
-      next: (orders: any[]) => {
-        this.orders = (orders || []).map(order => ({
+    this.api.getSellerOrders(this.page, this.limit).subscribe({
+      next: (res: any) => {
+        const items = res?.items || [];
+        const pagination = res?.pagination || {};
+
+        this.orders = items.map((order: any) => ({
           ...order,
           nextStatus: order.status,
           detailsLoaded: false,
           detailsLoading: false
         }));
+
+        this.total = Number(pagination.total || 0);
+        this.totalPages = Math.max(1, Number(pagination.totalPages || 1));
+        this.page = Number(pagination.page || 1);
+
         this.loading = false;
       },
       error: (err) => {
@@ -190,6 +223,22 @@ export class SellerOrdersPageComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  goToPreviousPage(): void {
+    if (this.page > 1) {
+      this.page--;
+      this.selectedOrderId = null;
+      this.loadOrders();
+    }
+  }
+
+  goToNextPage(): void {
+    if (this.page < this.totalPages) {
+      this.page++;
+      this.selectedOrderId = null;
+      this.loadOrders();
+    }
   }
 
   toggleDetails(order: any): void {

@@ -67,8 +67,8 @@ export class ApiService {
     });
   }
 
-  getSellerOrders() {
-    return this.http.get<any[]>(`${this.base}/orders/seller/list`, {
+  getSellerOrders(page:number, limit: number) {
+    return this.http.get<any>(`${this.base}/orders/seller/list?page=${page}&limit=${limit}`, {
       headers: this.authHeader()
     });
   }

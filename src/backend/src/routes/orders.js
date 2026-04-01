@@ -167,44 +167,76 @@ router.get('/me', requireRole('buyer'), async (req, res) => {
   res.json(rows);
 });
 
-router.get('/seller/list', requireRole('seller', 'admin'), async (req, res) => {
-  const rows = await query(
-    req.user.role === 'admin'
-      ? `SELECT
-           o.id,
-           o.order_number AS orderNumber,
-           o.buyer_id AS buyerId,
-           o.seller_id AS sellerId,
-           o.status,
-           o.subtotal,
-           o.shipping_total AS shippingTotal,
-           o.grand_total AS grandTotal,
-           o.tracking_number AS trackingNumber,
-           o.created_at AS createdAt,
-           CONCAT(u.first_name, ' ', u.last_name) AS buyerName
-         FROM orders o
-         LEFT JOIN users u ON u.id = o.buyer_id
-         ORDER BY o.created_at DESC`
-      : `SELECT
-           o.id,
-           o.order_number AS orderNumber,
-           o.buyer_id AS buyerId,
-           o.seller_id AS sellerId,
-           o.status,
-           o.subtotal,
-           o.shipping_total AS shippingTotal,
-           o.grand_total AS grandTotal,
-           o.tracking_number AS trackingNumber,
-           o.created_at AS createdAt,
-           CONCAT(u.first_name, ' ', u.last_name) AS buyerName
-         FROM orders o
-         LEFT JOIN users u ON u.id = o.buyer_id
-         WHERE o.seller_id = :sellerId
-         ORDER BY o.created_at DESC`,
-    { sellerId: req.user.sub }
-  );
+router.get('/seller/list',requireAuth ,requireRole('seller', 'admin'), async (req, res) => {
+  try {
+    const page = Math.max(1, parseInt(String(req.query.page || '1'), 10));
+    const limit = Math.max(1, parseInt(String(req.query.limit || '5'), 10));
+    const offset = (page - 1) * limit;
 
-  res.json(rows);
+    const countRows = await query(
+      req.user.role === 'admin'
+        ? `SELECT COUNT(*) AS total FROM orders`
+        : `SELECT COUNT(*) AS total FROM orders WHERE seller_id=:sellerId`,
+      { sellerId: req.user.sub }
+    );
+
+    const total = Number(countRows[0]?.total || 0);
+    const totalPages = Math.max(1, Math.ceil(total / limit));
+
+    const rows = await query(
+      req.user.role === 'admin'
+        ? `SELECT
+             o.id,
+             o.order_number AS orderNumber,
+             o.buyer_id AS buyerId,
+             o.seller_id AS sellerId,
+             o.status,
+             o.subtotal,
+             o.shipping_total AS shippingTotal,
+             o.grand_total AS grandTotal,
+             o.tracking_number AS trackingNumber,
+             o.created_at AS createdAt,
+             CONCAT(u.first_name, ' ', u.last_name) AS buyerName
+           FROM orders o
+           LEFT JOIN users u ON u.id = o.buyer_id
+           ORDER BY o.created_at DESC
+           LIMIT ${limit} OFFSET ${offset}`
+        : `SELECT
+             o.id,
+             o.order_number AS orderNumber,
+             o.buyer_id AS buyerId,
+             o.seller_id AS sellerId,
+             o.status,
+             o.subtotal,
+             o.shipping_total AS shippingTotal,
+             o.grand_total AS grandTotal,
+             o.tracking_number AS trackingNumber,
+             o.created_at AS createdAt,
+             CONCAT(u.first_name, ' ', u.last_name) AS buyerName
+           FROM orders o
+           LEFT JOIN users u ON u.id = o.buyer_id
+           WHERE o.seller_id = :sellerId
+           ORDER BY o.created_at DESC
+           LIMIT ${limit} OFFSET ${offset}`,
+      { sellerId: req.user.sub }
+    );
+
+    res.json({
+      items: rows,
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages
+      }
+    });
+  } catch (error) {
+    console.error('seller/list pagination error:', error);
+    res.status(500).json({
+      message: 'Could not load seller orders.',
+      error: error.message
+    });
+  }
 });
 
 router.put('/seller/:id/status', requireRole('seller', 'admin'), async (req, res) => {
