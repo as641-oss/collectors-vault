@@ -578,5 +578,14 @@
         }
       ]
     }
+  ],
+  "offers": [
+    {
+      "listingSlug": "sample-comics-7",
+      "buyerEmail": "buyer1@collectorsvault.dev",
+      "sellerEmail": "seller1@collectorsvault.dev",
+      "amount": 30.0,
+      "status": "pending"
+    }
   ]
 }

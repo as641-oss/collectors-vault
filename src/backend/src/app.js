@@ -9,6 +9,7 @@ import favoritesRoutes from './routes/favorites.js';
 import ordersRoutes from './routes/orders.js';
 import usersRoutes from './routes/users.js';
 import adminRoutes from './routes/admin.js';
+import offersRoutes from './routes/offers.js';
 
 export function createApp() {
   const app = express();
@@ -23,6 +24,7 @@ export function createApp() {
   app.use('/api/orders', ordersRoutes);
   app.use('/api/users', usersRoutes);
   app.use('/api/admin', adminRoutes);
+  app.use('/api/offers', offersRoutes);
 
   app.use((_req, res) => res.status(404).json({ message: 'Not found' }));
   return app;

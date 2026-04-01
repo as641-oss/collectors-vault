@@ -12,7 +12,7 @@ const seed = JSON.parse(fs.readFileSync(seedFile, 'utf8'));
 
 async function clearTables() {
   await pool.query('SET FOREIGN_KEY_CHECKS = 0');
-  for (const table of ['favorites','order_items','orders','listing_images','listings','categories','addresses','users']) {
+  for (const table of ['offers','favorites','order_items','orders','listing_images','listings','categories','addresses','users']) {
     await pool.query(`TRUNCATE TABLE ${table}`);
   }
   await pool.query('SET FOREIGN_KEY_CHECKS = 1');
@@ -77,6 +77,28 @@ async function main() {
     ]);
   }
 
+  for (const offer of (seed.offers || [])) {
+    await pool.execute(
+      `INSERT INTO offers (
+        listing_id,
+        buyer_id,
+        seller_id,
+        amount,
+        status,
+        created_at,
+        updated_at
+      )
+      VALUES (?, ?, ?, ?, ?, NOW(), NOW())`,
+      [
+        listingIdBySlug.get(offer.listingSlug),
+        userIdByEmail.get(offer.buyerEmail),
+        userIdByEmail.get(offer.sellerEmail),
+        offer.amount,
+        offer.status
+      ]
+    );
+  }
+
   for (const order of seed.orders) {
     const [result] = await pool.execute(
       `INSERT INTO orders (buyer_id, seller_id, order_number, status, subtotal, shipping_total, grand_total,
@@ -109,6 +131,8 @@ async function main() {
       );
     }
   }
+
+
 
   console.log(`Seeded ${mode} dataset`);
   await pool.end();

@@ -189,7 +189,7 @@ import { ApiService } from '../core/api.service';
           type="button"
           class="btn"
           [ngClass]="selectedTab === 'active' ? 'btn-dark' : 'btn-outline-dark'"
-          (click)="selectedTab = 'active'"
+          (click)="setTab('active')"
         >
           Active
         </button>
@@ -198,13 +198,21 @@ import { ApiService } from '../core/api.service';
           type="button"
           class="btn"
           [ngClass]="selectedTab === 'inactive' ? 'btn-dark' : 'btn-outline-dark'"
-          (click)="selectedTab = 'inactive'"
+          (click)="setTab('inactive')"
         >
           Inactive
         </button>
+
+        <button
+          class="btn"
+          [ngClass]="selectedTab === 'offers' ? 'btn-dark' : 'btn-outline-dark'"
+          (click)="setTab('offers')"
+          >
+          Offers
+        </button>
       </div>
 
-      <div class="table-responsive card card-shadow">
+      <div *ngIf="selectedTab !== 'offers'" class="table-responsive card card-shadow">
         <table class="table table-striped mb-0">
           <thead>
             <tr>
@@ -275,6 +283,66 @@ import { ApiService } from '../core/api.service';
           </tbody>
         </table>
       </div>
+      <div *ngIf="selectedTab === 'offers'" class="table-responsive card card-shadow">
+        <table class="table table-striped mb-0">
+          <thead>
+            <tr>
+              <th>Listing</th>
+              <th>Buyer</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th style="width: 220px;">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let offer of offers">
+              <td>{{ offer.listingTitle }}</td>
+              <td>{{ offer.buyerEmail }}</td>
+              <td>{{ '$' + offer.amount }}</td>
+              <td>
+                <span
+                  class="badge"
+                  [ngClass]="{
+                    'text-bg-warning': offer.status === 'pending',
+                    'text-bg-success': offer.status === 'accepted',
+                    'text-bg-danger': offer.status === 'declined',
+                    'text-bg-secondary': offer.status === 'expired'
+                  }"
+                >
+                  {{ offer.status }}
+                </span>
+              </td>
+              <td>
+                <div *ngIf="offer.status === 'pending'" class="d-flex gap-2">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-dark"
+                    (click)="changeOfferStatus(offer.id, 'accepted')"
+                  >
+                    Accept
+                  </button>
+
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-danger"
+                    (click)="changeOfferStatus(offer.id, 'declined')"
+                  >
+                    Decline
+                  </button>
+                </div>
+
+                <span *ngIf="offer.status !== 'pending'" class="text-muted">—</span>
+              </td>
+            </tr>
+
+            <tr *ngIf="!offers.length">
+              <td colspan="5" class="text-center py-4">
+                No offers received.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   `
 })
@@ -286,7 +354,8 @@ export class SellerListingsPageComponent {
   submitting = false;
   successMessage = '';
   errorMessage = '';
-  selectedTab: 'active' | 'inactive' = 'active';
+  selectedTab: 'active' | 'inactive' | 'offers' = 'active';
+  offers: any[] = [];
   editingId: number | null = null;
 
   form = {
@@ -384,7 +453,47 @@ export class SellerListingsPageComponent {
   }
 
   get filteredListings() {
-    return this.listings.filter((item) => item.status === this.selectedTab);
+  if (this.selectedTab === 'offers') return [];
+  return this.listings.filter((item) => item.status === this.selectedTab);
+}
+
+  setTab(tab: 'active' | 'inactive' | 'offers') {
+  this.selectedTab = tab;
+  this.successMessage = '';
+  this.errorMessage = '';
+
+  if (tab === 'offers') {
+    this.loadOffers();
+  }
+}
+
+loadOffers() {
+  this.api.getReceivedOffers().subscribe({
+    next: (data) => {
+      this.offers = data;
+    },
+    error: (err) => {
+      console.error(err);
+      this.errorMessage = err?.error?.message || 'Could not load offers.';
+    }
+  });
+}
+
+  changeOfferStatus(id: number, status: 'accepted' | 'declined') {
+    this.successMessage = '';
+    this.errorMessage = '';
+
+    this.api.updateOfferStatus(id, status).subscribe({
+      next: (res) => {
+        this.successMessage = res?.message || `Offer ${status} successfully.`;
+        this.loadOffers();
+        this.loadMyListings();
+      },
+      error: (err) => {
+        console.error(err);
+        this.errorMessage = err?.error?.message || `Could not update offer.`;
+      }
+    });
   }
 
   startEdit(item: any) {

@@ -109,6 +109,19 @@ CREATE TABLE IF NOT EXISTS favorites (
   CONSTRAINT fk_favorites_user FOREIGN KEY (user_id) REFERENCES users(id),
   CONSTRAINT fk_favorites_listing FOREIGN KEY (listing_id) REFERENCES listings(id)
 );
+CREATE TABLE IF NOT EXISTS offers (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  listing_id INT NOT NULL,
+  buyer_id INT NOT NULL,
+  seller_id INT NOT NULL,
+  amount DECIMAL(10,2) NOT NULL,
+  status ENUM('pending','accepted','declined','withdrawn','expired') NOT NULL DEFAULT 'pending',
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NOT NULL,
+  FOREIGN KEY (listing_id) REFERENCES listings(id) ON DELETE CASCADE,
+  FOREIGN KEY (buyer_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (seller_id) REFERENCES users(id) ON DELETE CASCADE
+);
 `;
 
 async function main() {

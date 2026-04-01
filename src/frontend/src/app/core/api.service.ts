@@ -155,4 +155,28 @@ export class ApiService {
       headers: this.authHeader()
     });
   }
+
+  createOffer(payload: { listingId: number; amount: number }) {
+    return this.http.post<any>(`${this.base}/offers`, payload, {
+      headers: this.authHeader()
+    });
+  }
+
+  getMyOffers() {
+    return this.http.get<any[]>(`${this.base}/offers/mine`, {
+      headers: this.authHeader()
+    });
+  }
+
+  getReceivedOffers() {
+    return this.http.get<any[]>(`${this.base}/offers/received`, {
+      headers: this.authHeader()
+    });
+  }
+
+  updateOfferStatus(id: number, status: 'accepted' | 'declined') {
+    return this.http.put<any>(`${this.base}/offers/${id}/status`, { status }, {
+      headers: this.authHeader()
+    });
+  }
 }
