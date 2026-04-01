@@ -155,4 +155,16 @@ export class ApiService {
       headers: this.authHeader()
     });
   }
+
+  updateAdminUserRole(id: number, role: string) {
+    return this.http.put(`${this.base}/admin/users/${id}/role`,{ role },{
+      headers: this.authHeader()
+    });
+  }
+
+  updateAdminUserStatus(id: number, isActive: boolean) {
+    return this.http.put(`${this.base}/admin/users/${id}/status`,{ isActive },{ 
+      headers: this.authHeader()
+    });
+  }
 }

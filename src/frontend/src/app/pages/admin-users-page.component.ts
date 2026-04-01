@@ -1,10 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../core/api.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   template: `
     <section class="container py-4">
       <div class="mb-4">
@@ -19,6 +20,10 @@ import { ApiService } from '../core/api.service';
       <div *ngIf="error" class="alert alert-danger">
         {{ error }}
       </div>
+     
+      <div *ngIf="message" class="alert alert-success">
+        {{ message }}
+      </div>
 
       <div class="card" *ngIf="!loading && !error">
         <div class="table-responsive">
@@ -29,18 +34,41 @@ import { ApiService } from '../core/api.service';
                 <th>Email</th>
                 <th>Name</th>
                 <th>Role</th>
-                <th>Active</th>
-                <th>Created</th>
+                <th>Status</th>
+                <th>Actions</th>
               </tr>
             </thead>
+
             <tbody>
               <tr *ngFor="let user of users">
                 <td>{{ user.id }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.firstName }} {{ user.lastName }}</td>
-                <td>{{ user.role }}</td>
-                <td>{{ user.isActive ? 'Yes' : 'No' }}</td>
-                <td>{{ user.createdAt | date:'medium' }}</td>
+
+                <td>
+                  <select
+                    class="form-select form-select-sm"
+                    [(ngModel)]="user.role"
+                    (change)="updateRole(user)"
+                  >
+                    <option value="buyer">buyer</option>
+                    <option value="seller">seller</option>
+                    <option value="admin">admin</option>
+                  </select>
+                </td>
+
+                <td>
+                  {{ user.isActive ? 'Active' : 'Inactive' }}
+                </td>
+
+                <td>
+                  <button
+                    class="btn btn-sm btn-outline-dark"
+                    (click)="toggleStatus(user)"
+                  >
+                    {{ user.isActive ? 'Deactivate' : 'Activate' }}
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -55,6 +83,7 @@ export class AdminUsersPageComponent implements OnInit {
   users: any[] = [];
   loading = true;
   error = '';
+  message = '';
 
   ngOnInit(): void {
     this.api.getAdminUsers().subscribe({
@@ -68,5 +97,33 @@ export class AdminUsersPageComponent implements OnInit {
       }
     });
   }
-}
 
+  updateRole(user: any) {
+    this.message = '';
+    this.error = '';
+
+    this.api.updateAdminUserRole(user.id, user.role).subscribe({
+      next: () => {
+        this.message = 'User role updated successfully.';
+      },
+      error: () => {
+        this.error = 'Could not update role.';
+      }
+    });
+  }
+
+  toggleStatus(user: any) {
+    this.message = '';
+    this.error = '';
+
+    this.api.updateAdminUserStatus(user.id, !user.isActive).subscribe({
+      next: () => {
+        user.isActive = !user.isActive;
+        this.message = 'User status updated successfully.';
+      },
+      error: () => {
+        this.error = 'Could not update status.';
+      }
+    });
+  }
+}

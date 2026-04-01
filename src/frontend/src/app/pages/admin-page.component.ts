@@ -24,7 +24,7 @@ export class AdminPageComponent {
     { label: 'Orders', value: '—' }
   ];
   constructor() {
-    this.api.adminStats().subscribe((stats) => {
+    this.api.getAdminStats().subscribe((stats) => {
       this.cards = [
         { label: 'Users', value: stats.users },
         { label: 'Listings', value: stats.listings },
