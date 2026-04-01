@@ -148,4 +148,20 @@ router.delete('/:id', requireAuth, requireRole('seller', 'admin'), async (req, r
   res.json({ success: true });
 });
 
+router.put('/:id/sold', requireAuth, requireRole('seller', 'admin'), async (req, res) => {
+  try {
+    await query(
+      `UPDATE listings
+       SET status = 'sold', quantity_available = 0
+       WHERE id = :id AND seller_id = :sellerId`,
+      { id: req.params.id, sellerId: req.user.sub }
+    );
+
+    res.json({ success: true });
+  } catch (error) {
+    console.error('MARK SOLD ERROR:', error);
+    res.status(500).json({ message: 'Failed to mark listing as sold' });
+  }
+});
+
 export default router;

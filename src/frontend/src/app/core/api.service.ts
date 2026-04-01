@@ -155,4 +155,10 @@ export class ApiService {
       headers: this.authHeader()
     });
   }
+
+  markListingSold(id: number) {
+    return this.http.put(`${this.base}/listings/${id}/sold`,{},{
+        headers: this.authHeader()
+      });
+  }
 }

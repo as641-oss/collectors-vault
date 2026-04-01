@@ -11,271 +11,322 @@ import { ApiService } from '../core/api.service';
   <div class="container py-5">
     <h2 class="mb-4">Seller Listings</h2>
 
-      <div class="card card-shadow mb-4">
-        <div class="card-body">
-          <h4 class="mb-3">{{ editingId ? 'Update Listing' : 'Create Listing' }}</h4>
+    <div class="card card-shadow mb-4">
+      <div class="card-body">
+        <h4 class="mb-3">{{ editingId ? 'Update Listing' : 'Create Listing' }}</h4>
 
-          <form (ngSubmit)="submitListing()">
-            <div class="row g-3">
-              <div class="col-md-6">
-                <label class="form-label">Title</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  [(ngModel)]="form.title"
-                  name="title"
-                  required
-                />
-              </div>
-
-              <div class="col-md-6">
-                <label class="form-label">Category</label>
-                <select
-                  class="form-select"
-                  [(ngModel)]="form.categoryId"
-                  name="categoryId"
-                  required
-                >
-                  <option value="">Select category</option>
-                  <option *ngFor="let category of categories" [value]="category.id">
-                    {{ category.name }}
-                  </option>
-                </select>
-              </div>
-
-              <div class="col-md-6">
-                <label class="form-label">Item Type</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  [(ngModel)]="form.itemType"
-                  name="itemType"
-                  placeholder="card, comic, figure..."
-                  required
-                />
-              </div>
-
-              <div class="col-md-6">
-                <label class="form-label">Brand / Series</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  [(ngModel)]="form.brandOrSeries"
-                  name="brandOrSeries"
-                  required
-                />
-              </div>
-
-              <div class="col-md-6">
-                <label class="form-label">Condition</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  [(ngModel)]="form.conditionLabel"
-                  name="conditionLabel"
-                  placeholder="Near Mint"
-                  required
-                />
-              </div>
-
-              <div class="col-md-6">
-                <label class="form-label">Image URL</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  [(ngModel)]="form.coverImageUrl"
-                  name="coverImageUrl"
-                />
-              </div>
-
-              <div class="col-12">
-                <label class="form-label">Description</label>
-                <textarea
-                  class="form-control"
-                  rows="3"
-                  [(ngModel)]="form.description"
-                  name="description"
-                  required
-                ></textarea>
-              </div>
-
-              <div class="col-md-4">
-                <label class="form-label">Price</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  [(ngModel)]="form.price"
-                  name="price"
-                  min="0"
-                  step="0.01"
-                  required
-                />
-              </div>
-
-              <div class="col-md-4">
-                <label class="form-label">Shipping Fee</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  [(ngModel)]="form.shippingFee"
-                  name="shippingFee"
-                  min="0"
-                  step="0.01"
-                  required
-                />
-              </div>
-
-              <div class="col-md-4">
-                <label class="form-label">Quantity</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  [(ngModel)]="form.quantityAvailable"
-                  name="quantityAvailable"
-                  min="1"
-                  step="1"
-                  required
-                />
-              </div>
+        <form (ngSubmit)="submitListing()">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Title</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="form.title"
+                name="title"
+                required
+              />
             </div>
 
-            <div class="mt-3 d-flex gap-2">
-              <button
-                type="submit"
-                class="btn btn-dark"
-                [disabled]="submitting"
+            <div class="col-md-6">
+              <label class="form-label">Category</label>
+              <select
+                class="form-select"
+                [(ngModel)]="form.categoryId"
+                name="categoryId"
+                required
               >
-                {{
-                  submitting
-                    ? (editingId ? 'Saving...' : 'Creating...')
-                    : (editingId ? 'Save Changes' : 'Create Listing')
-                }}
-              </button>
-
-              <button
-                *ngIf="editingId"
-                type="button"
-                class="btn btn-outline-secondary"
-                (click)="cancelEdit()"
-                [disabled]="submitting"
-              >
-                Cancel
-              </button>
-
-              <button
-                *ngIf="!editingId"
-                type="button"
-                class="btn btn-outline-secondary"
-                (click)="resetForm()"
-                [disabled]="submitting"
-              >
-                Reset
-              </button>
+                <option value="">Select category</option>
+                <option *ngFor="let category of categories" [value]="category.id">
+                  {{ category.name }}
+                </option>
+              </select>
             </div>
 
-            <div *ngIf="successMessage" class="alert alert-success mt-3 mb-0">
-              {{ successMessage }}
+            <div class="col-md-6">
+              <label class="form-label">Item Type</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="form.itemType"
+                name="itemType"
+                placeholder="card, comic, figure..."
+                required
+              />
             </div>
 
-            <div *ngIf="errorMessage" class="alert alert-danger mt-3 mb-0">
-              {{ errorMessage }}
+            <div class="col-md-6">
+              <label class="form-label">Brand / Series</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="form.brandOrSeries"
+                name="brandOrSeries"
+                required
+              />
             </div>
-          </form>
-        </div>
-      </div>
 
-      <div class="d-flex gap-2 mb-3">
-        <button
-          type="button"
-          class="btn"
-          [ngClass]="selectedTab === 'active' ? 'btn-dark' : 'btn-outline-dark'"
-          (click)="selectedTab = 'active'"
-        >
-          Active
-        </button>
+            <div class="col-md-6">
+              <label class="form-label">Condition</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="form.conditionLabel"
+                name="conditionLabel"
+                placeholder="Near Mint"
+                required
+              />
+            </div>
 
-        <button
-          type="button"
-          class="btn"
-          [ngClass]="selectedTab === 'inactive' ? 'btn-dark' : 'btn-outline-dark'"
-          (click)="selectedTab = 'inactive'"
-        >
-          Inactive
-        </button>
-      </div>
+            <div class="col-md-6">
+              <label class="form-label">Image URL</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="form.coverImageUrl"
+                name="coverImageUrl"
+              />
+            </div>
 
-      <div class="table-responsive card card-shadow">
-        <table class="table table-striped mb-0">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Status</th>
-              <th>Qty</th>
-              <th>Price</th>
-              <th style="width: 180px;">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of filteredListings">
-              <td>
-                <a
-                  class="text-decoration-none text-reset d-block"
-                  [routerLink]="['/marketplace', item.slug]"
-                  data-testid="listing-card-link"
-                >
-                  {{ item.title }}
-                </a>
-              </td>
+            <div class="col-12">
+              <label class="form-label">Description</label>
+              <textarea
+                class="form-control"
+                rows="3"
+                [(ngModel)]="form.description"
+                name="description"
+                required
+              ></textarea>
+            </div>
 
-              <td>
-                <span
-                  data-testid="listing-status-badge"
-                  class="badge"
-                  [ngClass]="{
-                    'text-bg-dark': item.status === 'active',
-                    'text-bg-secondary': item.status === 'inactive',
-                    'text-bg-success': item.status === 'sold'
-                  }"
-                >
-                  {{ item.status }}
-                </span>
-              </td>
+            <div class="col-md-4">
+              <label class="form-label">Price</label>
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="form.price"
+                name="price"
+                min="0"
+                step="0.01"
+                required
+              />
+            </div>
 
-              <td>{{ item.quantityAvailable }}</td>
-              <td>{{ '$' + item.price }}</td>
+            <div class="col-md-4">
+              <label class="form-label">Shipping Fee</label>
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="form.shippingFee"
+                name="shippingFee"
+                min="0"
+                step="0.01"
+                required
+              />
+            </div>
 
-              <td>
-                <div *ngIf="item.status === 'active'" class="d-flex gap-2">
-                  <button
-                    type="button"
-                    class="btn btn-sm btn-outline-primary"
-                    (click)="startEdit(item)"
-                  >
-                    Update
-                  </button>
+            <div class="col-md-4">
+              <label class="form-label">Quantity</label>
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="form.quantityAvailable"
+                name="quantityAvailable"
+                min="1"
+                step="1"
+                required
+              />
+            </div>
+          </div>
 
-                  <button
-                    type="button"
-                    class="btn btn-sm btn-outline-danger"
-                    (click)="deleteListing(item.id)"
-                  >
-                    Delete
-                  </button>
-                </div>
+          <div class="mt-3 d-flex gap-2">
+            <button
+              type="submit"
+              class="btn btn-dark"
+              [disabled]="submitting"
+            >
+              {{
+                submitting
+                  ? (editingId ? 'Saving...' : 'Creating...')
+                  : (editingId ? 'Save Changes' : 'Create Listing')
+              }}
+            </button>
 
-                <span *ngIf="item.status !== 'active'" class="text-muted">—</span>
-              </td>
-            </tr>
+            <button
+              *ngIf="editingId"
+              type="button"
+              class="btn btn-outline-secondary"
+              (click)="cancelEdit()"
+              [disabled]="submitting"
+            >
+              Cancel
+            </button>
 
-            <tr *ngIf="!filteredListings.length">
-              <td colspan="5" class="text-center py-4">
-                No {{ selectedTab }} listings.
-              </td>
-            </tr>
-          </tbody>
-        </table>
+            <button
+              *ngIf="!editingId"
+              type="button"
+              class="btn btn-outline-secondary"
+              (click)="resetForm()"
+              [disabled]="submitting"
+            >
+              Reset
+            </button>
+          </div>
+
+          <div *ngIf="successMessage" class="alert alert-success mt-3 mb-0">
+            {{ successMessage }}
+          </div>
+
+          <div *ngIf="errorMessage" class="alert alert-danger mt-3 mb-0">
+            {{ errorMessage }}
+          </div>
+        </form>
       </div>
     </div>
+
+    <div class="d-flex gap-2 mb-3 flex-wrap">
+      <button
+        type="button"
+        class="btn"
+        [ngClass]="selectedTab === 'active' ? 'btn-dark' : 'btn-outline-dark'"
+        (click)="selectedTab = 'active'"
+      >
+        Active
+      </button>
+
+      <button
+        type="button"
+        class="btn"
+        [ngClass]="selectedTab === 'sold' ? 'btn-dark' : 'btn-outline-dark'"
+        (click)="selectedTab = 'sold'"
+      >
+        Sold
+      </button>
+
+      <button
+        type="button"
+        class="btn"
+        [ngClass]="selectedTab === 'inactive' ? 'btn-dark' : 'btn-outline-dark'"
+        (click)="selectedTab = 'inactive'"
+      >
+        Inactive
+      </button>
+    </div>
+
+    <div class="table-responsive card card-shadow">
+      <table class="table table-striped align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Qty</th>
+            <th>Price</th>
+            <th style="width: 260px;">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of filteredListings">
+            <td>
+              <a
+                class="text-decoration-none text-reset d-block fw-medium"
+                [routerLink]="['/marketplace', item.slug]"
+                data-testid="listing-card-link"
+              >
+                {{ item.title }}
+              </a>
+            </td>
+
+            <td>
+              <span
+                data-testid="listing-status-badge"
+                class="badge"
+                [ngClass]="{
+                  'text-bg-dark': item.status === 'active',
+                  'text-bg-secondary': item.status === 'inactive',
+                  'text-bg-success': item.status === 'sold'
+                }"
+              >
+                {{ item.status }}
+              </span>
+            </td>
+
+            <td>{{ item.quantityAvailable }}</td>
+            <td>{{ '$' + item.price }}</td>
+
+            <td>
+              <div class="d-flex gap-2 flex-wrap" *ngIf="item.status === 'active'">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-primary"
+                  (click)="startEdit(item)"
+                >
+                  Update
+                </button>
+
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-danger"
+                  (click)="deleteListing(item.id)"
+                >
+                  Delete
+                </button>
+
+                <button
+                  type="button"
+                  class="btn btn-sm btn-dark"
+                  (click)="markSold(item.id)"
+                >
+                  Mark Sold
+                </button>
+              </div>
+
+              <div class="d-flex gap-2 flex-wrap" *ngIf="item.status === 'sold'">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-secondary"
+                  [routerLink]="['/marketplace', item.slug]"
+                >
+                  View
+                </button>
+
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-danger"
+                  (click)="deleteListing(item.id)"
+                >
+                  Delete
+                </button>
+              </div>
+
+              <div class="d-flex gap-2 flex-wrap" *ngIf="item.status === 'inactive'">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-primary"
+                  (click)="startEdit(item)"
+                >
+                  Update
+                </button>
+
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-danger"
+                  (click)="deleteListing(item.id)"
+                >
+                  Delete
+                </button>
+              </div>
+            </td>
+          </tr>
+
+          <tr *ngIf="!filteredListings.length">
+            <td colspan="5" class="text-center py-4">
+              No {{ selectedTab }} listings.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
   `
 })
 export class SellerListingsPageComponent {
@@ -286,7 +337,7 @@ export class SellerListingsPageComponent {
   submitting = false;
   successMessage = '';
   errorMessage = '';
-  selectedTab: 'active' | 'inactive' = 'active';
+  selectedTab: 'active' | 'sold' | 'inactive' = 'active';
   editingId: number | null = null;
 
   form = {
@@ -308,7 +359,7 @@ export class SellerListingsPageComponent {
   }
 
   loadMyListings() {
-  this.api.mySellerListings().subscribe({
+    this.api.mySellerListings().subscribe({
       next: (data) => {
         this.listings = data;
       },
@@ -333,8 +384,8 @@ export class SellerListingsPageComponent {
     return value
       .toLowerCase()
       .trim()
-      .replace(/[^a-z0-9\s-]/g, '')
-      .replace(/\s+/g, '-')
+      .replace(/[^a-z0-9\\s-]/g, '')
+      .replace(/\\s+/g, '-')
       .replace(/-+/g, '-');
   }
 
@@ -389,7 +440,7 @@ export class SellerListingsPageComponent {
 
   startEdit(item: any) {
     this.editingId = item.id;
-    this.selectedTab = 'active';
+    this.selectedTab = item.status === 'sold' ? 'sold' : item.status === 'inactive' ? 'inactive' : 'active';
     this.successMessage = '';
     this.errorMessage = '';
 
@@ -432,7 +483,8 @@ export class SellerListingsPageComponent {
       }
     });
   }
- resetForm() {
+
+  resetForm() {
     this.form = {
       categoryId: '',
       title: '',
@@ -445,5 +497,17 @@ export class SellerListingsPageComponent {
       quantityAvailable: 1,
       coverImageUrl: ''
     };
+  }
+
+  markSold(id: number) {
+    this.api.markListingSold(id).subscribe({
+      next: () => {
+        this.selectedTab = 'sold';
+        this.loadMyListings();
+      },
+      error: () => {
+        alert('Could not mark listing as sold');
+      }
+    });
   }
 }
