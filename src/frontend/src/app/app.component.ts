@@ -15,6 +15,7 @@ import { AuthService } from './core/auth.service';
           <a class="nav-link" routerLink="/marketplace" routerLinkActive="active">Marketplace</a>
           <a class="nav-link" routerLink="/dashboard" routerLinkActive="active" *ngIf="auth.isAuthenticated()">Dashboard</a>
           <a class="nav-link" routerLink="/dashboard/orders" routerLinkActive="active" *ngIf="auth.user()?.role === 'buyer'">My Orders</a>
+          <a class="nav-link" routerLink="/saved-filters" routerLinkActive="active" *ngIf="auth.user()?.role === 'buyer'">Saved Filters</a>
           <a class="nav-link" routerLink="/seller/orders" routerLinkActive="active" *ngIf="auth.user()?.role === 'seller'">Sales</a>
           <a class="nav-link" routerLink="/seller/listings" routerLinkActive="active" *ngIf="auth.user()?.role === 'seller' || auth.user()?.role === 'admin'">Seller</a>
           <a class="nav-link" routerLink="/admin" routerLinkActive="active" *ngIf="auth.user()?.role === 'admin'">Admin</a>

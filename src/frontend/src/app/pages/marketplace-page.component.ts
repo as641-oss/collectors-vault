@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { ApiService } from '../core/api.service';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -17,17 +17,30 @@ import { ApiService } from '../core/api.service';
 
     <section class="container py-4">
       <div class="row g-3 mb-4">
-        <div class="col-md-6">
-          <input data-testid="search-input" class="form-control" [(ngModel)]="search" placeholder="Search title, series, description">
+        <div class="col-md-5">
+          <input
+            data-testid="search-input"
+            class="form-control"
+            [(ngModel)]="search"
+            placeholder="Search title, series, description"
+          >
         </div>
-        <div class="col-md-4">
+
+        <div class="col-md-3">
           <select class="form-select" [(ngModel)]="category">
             <option value="">All categories</option>
             <option *ngFor="let c of categories" [value]="c.slug">{{ c.name }}</option>
           </select>
         </div>
+
         <div class="col-md-2 d-grid">
           <button class="btn gold-btn" (click)="load()">Search</button>
+        </div>
+
+        <div class="col-md-2 d-grid">
+          <button class="btn btn-dark" (click)="saveFilter()">
+            Save Filter
+          </button>
         </div>
       </div>
 
@@ -57,25 +70,64 @@ import { ApiService } from '../core/api.service';
           </a>
         </div>
       </div>
+
       <ng-template #empty>
-        <div data-testid="search-empty-state" class="alert alert-light border">No listings found.</div>
+        <div data-testid="search-empty-state" class="alert alert-light border">
+          No listings found.
+        </div>
       </ng-template>
     </section>
   `
 })
 export class MarketplacePageComponent {
   private api = inject(ApiService);
+  private route = inject(ActivatedRoute);
+
   search = '';
   category = '';
   categories: any[] = [];
   listings: any[] = [];
 
   constructor() {
-    this.api.getCategories().subscribe((data) => (this.categories = data));
-    this.load();
+    this.api.getCategories().subscribe((data) => {
+      this.categories = data;
+
+      this.route.queryParams.subscribe((params) => {
+        this.search = params['search'] || '';
+        this.category = params['category'] || '';
+        this.load();
+      });
+    });
   }
 
   load() {
     this.api.getListings(this.search, this.category).subscribe((data) => (this.listings = data));
+  }
+
+  saveFilter() {
+    const name = prompt('Enter a name for this filter');
+    if (!name?.trim()) return;
+
+    const selectedCategory = this.categories.find((c: any) => c.slug === this.category);
+
+    const hasAtLeastOneFilter = this.search || this.category;
+    if (!hasAtLeastOneFilter) {
+      alert('Choose at least one filter before saving.');
+      return;
+    }
+
+    this.api.createSavedFilter({
+      name: name.trim(),
+      search: this.search || null,
+      categoryId: selectedCategory?.id || null
+    }).subscribe({
+      next: () => {
+        alert('Filter saved successfully.');
+      },
+      error: (err) => {
+        console.error(err);
+        alert(err?.error?.message || 'Could not save filter.');
+      }
+    });
   }
 }

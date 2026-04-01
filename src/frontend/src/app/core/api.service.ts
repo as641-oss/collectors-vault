@@ -155,4 +155,22 @@ export class ApiService {
       headers: this.authHeader()
     });
   }
+
+  getSavedFilters() {
+    return this.http.get<any[]>(`${this.base}/saved-filters`, {
+      headers: this.authHeader()
+    });
+  }
+
+  createSavedFilter(payload: any) {
+    return this.http.post(`${this.base}/saved-filters`, payload, {
+      headers: this.authHeader()
+    });
+  }
+
+  deleteSavedFilter(id: number) {
+    return this.http.delete(`${this.base}/saved-filters/${id}`, {
+      headers: this.authHeader()
+    });
+  }
 }

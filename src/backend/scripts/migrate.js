@@ -109,6 +109,20 @@ CREATE TABLE IF NOT EXISTS favorites (
   CONSTRAINT fk_favorites_user FOREIGN KEY (user_id) REFERENCES users(id),
   CONSTRAINT fk_favorites_listing FOREIGN KEY (listing_id) REFERENCES listings(id)
 );
+CREATE TABLE IF NOT EXISTS saved_filters (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  name VARCHAR(100) NOT NULL,
+  search VARCHAR(255) NULL,
+  category_id INT NULL,
+  min_price DECIMAL(10,2) NULL,
+  max_price DECIMAL(10,2) NULL,
+  item_condition VARCHAR(50) NULL,
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
+);
 `;
 
 async function main() {
