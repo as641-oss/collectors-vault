@@ -7,7 +7,7 @@ test.describe('Task 5 - Offers System', () => {
     await page.goto('http://localhost/login');
 
     await page.getByPlaceholder('Email').fill('buyer1@collectorsvault.dev');
-    await page.getByPlaceholder('Password').fill('Password123!');
+    await page.getByPlaceholder('Password').fill('VaultPass123!');
     await page.locator('button.gold-btn').click();
 
     await expect(page).not.toHaveURL(/\/login$/);
@@ -41,7 +41,7 @@ test.describe('Task 5 - Offers System', () => {
     await page.goto('http://localhost/login');
 
     await page.getByPlaceholder('Email').fill('seller1@collectorsvault.dev');
-    await page.getByPlaceholder('Password').fill('Password123!');
+    await page.getByPlaceholder('Password').fill('VaultPass123!');
     await page.locator('button.gold-btn').click();
 
     await page.waitForTimeout(1500);
