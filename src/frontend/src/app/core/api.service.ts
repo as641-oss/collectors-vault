@@ -155,4 +155,10 @@ export class ApiService {
       headers: this.authHeader()
     });
   }
+
+  getRecommendations(listingId: number) {
+    return this.http.get<any[]>(`${this.base}/listings/${listingId}/recommendations`,{
+      headers: this.authHeader()
+    });
+  }
 }

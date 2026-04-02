@@ -148,4 +148,83 @@ router.delete('/:id', requireAuth, requireRole('seller', 'admin'), async (req, r
   res.json({ success: true });
 });
 
+router.get('/:id/recommendations', async (req, res) => {
+  const listingId = Number(req.params.id);
+
+  if (!Number.isInteger(listingId)) {
+    return res.status(400).json({ message: 'Invalid listing id.' });
+  }
+
+  const currentRows = await query(
+    `
+    SELECT id, category_id
+    FROM listings
+    WHERE id = ?
+    LIMIT 1
+    `,
+    [listingId]
+  );
+
+  const currentListing = currentRows[0];
+
+  if (!currentListing) {
+    return res.status(404).json({ message: 'Listing not found.' });
+  }
+
+  const sameCategoryRows = await query(
+    `
+    SELECT
+      l.id,
+      l.slug,
+      l.title,
+      l.price,
+      l.cover_image_url AS coverImageUrl,
+      l.condition_label AS conditionLabel,
+      c.name AS categoryName
+    FROM listings l
+    LEFT JOIN categories c ON c.id = l.category_id
+    WHERE l.status = 'active'
+      AND l.id <> ?
+      AND l.category_id = ?
+    ORDER BY l.created_at DESC
+    LIMIT 4
+    `,
+    [listingId, currentListing.category_id]
+  );
+
+  let recommendations = [...sameCategoryRows];
+
+  if (recommendations.length < 4) {
+    const fallbackRows = await query(
+      `
+      SELECT
+        l.id,
+        l.slug,
+        l.title,
+        l.price,
+        l.cover_image_url AS coverImageUrl,
+        l.condition_label AS conditionLabel,
+        c.name AS categoryName
+      FROM listings l
+      LEFT JOIN categories c ON c.id = l.category_id
+      WHERE l.status = 'active'
+        AND l.id <> ?
+      ORDER BY l.created_at DESC
+      LIMIT 12
+      `,
+      [listingId]
+    );
+
+    const existingIds = new Set(recommendations.map(item => item.id));
+    const filteredFallback = fallbackRows
+      .filter(item => !existingIds.has(item.id))
+      .slice(0, 4 - recommendations.length);
+
+    recommendations = [...recommendations, ...filteredFallback];
+  }
+
+  return res.json(recommendations);
+});
+
+
 export default router;
