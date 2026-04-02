@@ -18,6 +18,7 @@ import { AuthService } from './core/auth.service';
           <a class="nav-link" routerLink="/seller/orders" routerLinkActive="active" *ngIf="auth.user()?.role === 'seller'">Sales</a>
           <a class="nav-link" routerLink="/seller/listings" routerLinkActive="active" *ngIf="auth.user()?.role === 'seller' || auth.user()?.role === 'admin'">Seller</a>
           <a class="nav-link" routerLink="/admin" routerLinkActive="active" *ngIf="auth.user()?.role === 'admin'">Admin</a>
+          <a routerLink="/cart" class="nav-link"*ngIf="auth.user()?.role === 'buyer'">Cart</a>
           <a class="btn btn-outline-light btn-sm" routerLink="/login" *ngIf="!auth.isAuthenticated()">Login</a>
           <button class="btn btn-outline-light btn-sm ms-2" *ngIf="auth.isAuthenticated()" (click)="auth.logout()">Logout</button>
         </div>

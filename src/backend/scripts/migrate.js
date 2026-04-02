@@ -109,6 +109,15 @@ CREATE TABLE IF NOT EXISTS favorites (
   CONSTRAINT fk_favorites_user FOREIGN KEY (user_id) REFERENCES users(id),
   CONSTRAINT fk_favorites_listing FOREIGN KEY (listing_id) REFERENCES listings(id)
 );
+CREATE TABLE IF NOT EXISTS cart_items (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  buyer_id INT NOT NULL,
+  listing_id INT NOT NULL,
+  quantity INT NOT NULL DEFAULT 1,
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NOT NULL,
+  UNIQUE KEY unique_cart_item (buyer_id, listing_id)
+);
 `;
 
 async function main() {

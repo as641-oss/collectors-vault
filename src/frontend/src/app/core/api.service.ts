@@ -155,4 +155,34 @@ export class ApiService {
       headers: this.authHeader()
     });
   }
+
+  getCart() {
+    return this.http.get<any>(`${this.base}/cart`, {
+      headers: this.authHeader()
+    });
+  }
+
+  addToCart(payload: any) {
+    return this.http.post(`${this.base}/cart`, payload, {
+      headers: this.authHeader()
+    });
+  }
+
+  updateCartItem(id: number, payload: any) {
+    return this.http.put(`${this.base}/cart/${id}`, payload, {
+      headers: this.authHeader()
+    });
+  }
+
+  removeCartItem(id: number) {
+    return this.http.delete(`${this.base}/cart/${id}`, {
+      headers: this.authHeader()
+    });
+  }
+
+  checkoutCart() {
+    return this.http.post(`${this.base}/cart/checkout`, {}, {
+      headers: this.authHeader()
+    });
+  }
 }

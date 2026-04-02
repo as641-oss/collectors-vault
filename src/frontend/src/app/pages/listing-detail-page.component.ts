@@ -35,25 +35,38 @@ import { AuthService } from '../core/auth.service';
           <div class="mb-2"><strong>Condition:</strong> {{ listing.conditionLabel }}</div>
           <div class="mb-2"><strong>Price:</strong> {{'$' + listing.price }}</div>
           <div class="mb-3"><strong>Available:</strong> {{ listing.quantityAvailable }}</div>
-
           <button
             *ngIf="auth.user()?.role === 'buyer' && listing?.status === 'active' && listing?.quantityAvailable > 0"
             class="btn gold-btn"
             (click)="buyNow()">
             Buy Now
-           </button>
+          </button>
 
-           <span
-                *ngIf="listing?.status === 'sold' || listing?.quantity_available === 0"
-                class="badge bg-secondary">
-                Sold Out
-            </span>
-            <div *ngIf="error" class="alert alert-danger mt-3">
-              {{ error }}
-              <a routerLink="/account" *ngIf="error.includes('complete your profile')">Complete account</a>
-            </div>
+            <button
+              *ngIf="auth.user()?.role === 'buyer' && listing?.status === 'active' && listing?.quantityAvailable > 0"
+              class="btn btn-outline-warning btn-sm ms-2"
+              (click)="addToCart(listing)">
+              Add to Cart
+            </button>
 
-          <a routerLink="/marketplace" class="btn btn-outline-dark ms-2">Back</a>
+          <span
+            *ngIf="listing?.status === 'sold' || listing?.quantityAvailable === 0"
+            class="badge bg-secondary">
+            Sold Out
+          </span>
+
+          <div *ngIf="error" class="alert alert-danger mt-3">
+            {{ error }}
+            <a routerLink="/account" *ngIf="error.includes('complete your profile')">Complete account</a>
+          </div>
+
+          <div *ngIf="success" class="alert alert-success mt-3">
+            {{ success }}
+          </div>
+
+          <a routerLink="/marketplace" class="btn btn-outline-dark ms-2">
+            Back
+          </a>
         </div>
       </div>
     </section>
@@ -66,6 +79,7 @@ export class ListingDetailPageComponent implements OnInit {
 
   listing: any = null;
   loading = true;
+  success = '';
   error = '';
 
   ngOnInit(): void {
@@ -111,5 +125,20 @@ export class ListingDetailPageComponent implements OnInit {
             alert(err?.error?.message || 'Purchase failed');
             }
         });
+    }
+    addToCart(listing: any): void {
+      this.api.addToCart({
+        listingId: listing.id,
+        quantity: 1
+      }).subscribe({
+        next: () => {
+          this.success = 'Item added to cart.';
+          this.error = '';
+        },
+        error: (err) => {
+          this.error = err.error?.message || 'Failed to add item to cart.';
+          this.success = '';
+        }
+      });
     }
 }
