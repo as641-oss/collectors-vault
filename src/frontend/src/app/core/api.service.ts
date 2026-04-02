@@ -155,4 +155,36 @@ export class ApiService {
       headers: this.authHeader()
     });
   }
+
+  getNotifications() {
+    return this.http.get<any[]>(`${this.base}/notifications`, {
+      headers: this.authHeader()
+    });
+  }
+
+  getUnreadNotificationCount() {
+    return this.http.get<{ count: number }>(`${this.base}/notifications/unread-count`, {
+      headers: this.authHeader()
+    });
+  }
+
+  markNotificationRead(id: number) {
+    return this.http.patch(
+      `${this.base}/notifications/${id}/read`,
+      {},
+      {
+        headers: this.authHeader()
+      }
+    );
+  }
+
+  markAllNotificationsRead() {
+    return this.http.patch(
+      `${this.base}/notifications/read-all`,
+      {},
+      {
+        headers: this.authHeader()
+      }
+    );
+  }
 }

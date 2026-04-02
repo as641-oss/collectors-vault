@@ -14,6 +14,7 @@ import { AdminUsersPageComponent } from './pages/admin-users-page.component';
 import { AdminListingsPageComponent } from './pages/admin-listings-page.component';
 import { AdminOrdersPageComponent } from './pages/admin-orders-page.component';
 import { authGuard, roleGuard } from './core/auth.guard';
+import { NotificationsPageComponent } from './pages/notifications-page.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'marketplace' },
@@ -32,5 +33,6 @@ export const routes: Routes = [
   { path: 'admin/users', component: AdminUsersPageComponent, canActivate: [authGuard, roleGuard(['admin'])] },
   { path: 'admin/listings', component: AdminListingsPageComponent, canActivate: [authGuard, roleGuard(['admin'])] },
   { path: 'admin/orders', component: AdminOrdersPageComponent, canActivate: [authGuard, roleGuard(['admin'])] },
+  { path: 'notifications', component: NotificationsPageComponent, canActivate: [authGuard, roleGuard(['admin','seller','buyer'])] },
 ];
 

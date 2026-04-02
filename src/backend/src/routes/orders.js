@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { query, pool } from '../db.js';
 import { requireAuth, requireRole } from '../middleware/auth.js';
+import { createNotification } from '../utils/notification.js'
 
 const router = Router();
 
@@ -143,6 +144,15 @@ if (!profile?.phone || !selectedAddress) {
 
     await conn.commit();
 
+    await createNotification({
+      userId: listing.seller_id,
+      type: 'order_placed',
+      title: 'New order received',
+      message: `A buyer placed an order for ${listing.title}.`,
+      link: '/seller/orders'
+    });
+
+
     res.status(201).json({
       orderId: orderResult.insertId,
       orderNumber
@@ -215,6 +225,39 @@ router.put('/seller/:id/status', requireRole('seller', 'admin'), async (req, res
     return res.status(400).json({ message: 'Invalid status' });
   }
 
+  const orderRows = await query(
+    req.user.role === 'admin'
+      ? `SELECT
+           o.id,
+           o.buyer_id,
+           o.status,
+           oi.listing_title_snapshot
+         FROM orders o
+         LEFT JOIN order_items oi ON oi.order_id = o.id
+         WHERE o.id = :id
+         LIMIT 1`
+      : `SELECT
+           o.id,
+           o.buyer_id,
+           o.status,
+           oi.listing_title_snapshot
+         FROM orders o
+         LEFT JOIN order_items oi ON oi.order_id = o.id
+         WHERE o.id = :id
+           AND o.seller_id = :sellerId
+         LIMIT 1`,
+    {
+      id: req.params.id,
+      sellerId: req.user.sub
+    }
+  );
+
+  const order = orderRows[0];
+
+  if (!order) {
+    return res.status(404).json({ message: 'Order not found' });
+  }
+
   await query(
     req.user.role === 'admin'
       ? 'UPDATE orders SET status=:status, updated_at=NOW() WHERE id=:id'
@@ -225,6 +268,16 @@ router.put('/seller/:id/status', requireRole('seller', 'admin'), async (req, res
       status
     }
   );
+
+  if (order.status !== 'shipped' && status === 'shipped') {
+    await createNotification({
+      userId: order.buyer_id,
+      type: 'order_shipped',
+      title: 'Your order has shipped',
+      message: `Your order for ${order.listing_title_snapshot} has been marked as shipped.`,
+      link: '/orders'
+    });
+  }
 
   res.json({ success: true });
 });
