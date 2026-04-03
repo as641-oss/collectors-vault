@@ -14,14 +14,34 @@ test.describe('Task 6 - Seller Orders Pagination', () => {
 
     await expect(page.locator('h2')).toContainText('Seller Orders');
 
-    await expect(page.locator('text=Page')).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Previous' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Next' })).toBeVisible();
-
     const pageLabel = page.locator('text=/Page\\s+\\d+\\s+of\\s+\\d+/');
     await expect(pageLabel).toBeVisible();
 
     const rows = page.locator('tbody > tr').filter({ has: page.locator('td') });
     await expect(rows.first()).toBeVisible();
+
+    const firstRowText = await rows.first().textContent();
+
+    const nextButton = page.getByRole('button', { name: 'Next' });
+
+    await expect(nextButton).toBeVisible();
+
+    if (await nextButton.isEnabled()) {
+      await nextButton.click();
+      await page.waitForTimeout(1000);
+
+      const secondPageRowText = await rows.first().textContent();
+      expect(secondPageRowText).not.toBe(firstRowText);
+
+      const previousButton = page.getByRole('button', { name: 'Previous' });
+
+      if (await previousButton.isEnabled()) {
+        await previousButton.click();
+        await page.waitForTimeout(1000);
+
+        const returnedRowText = await rows.first().textContent();
+        expect(returnedRowText).toBe(firstRowText);
+      }
+    }
   });
 });
