@@ -1,0 +1,5 @@
+services:
+  backend:
+    environment:
+      SEED_MODE: private
+      JWT_SECRET: private-seed-secret
