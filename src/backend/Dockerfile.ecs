@@ -4,11 +4,10 @@ WORKDIR /app
 
 RUN apk add --no-cache curl netcat-openbsd
 
-COPY package*.json ./
-
+COPY src/backend/package*.json ./
 RUN npm install
 
-COPY . .
+COPY src/backend/ ./
 
 RUN chmod +x entrypoint.sh
 
