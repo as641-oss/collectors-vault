@@ -1,0 +1,582 @@
+{
+  "users": [
+    {
+      "email": "admin@vault-private.dev",
+      "password": "VaultPass123!",
+      "firstName": "Ava",
+      "lastName": "Admin",
+      "role": "admin",
+      "isActive": true
+    },
+    {
+      "email": "seller1@vault-private.dev",
+      "password": "VaultPass123!",
+      "firstName": "Milo",
+      "lastName": "Seller",
+      "role": "seller",
+      "isActive": true
+    },
+    {
+      "email": "seller2@vault-private.dev",
+      "password": "VaultPass123!",
+      "firstName": "Jade",
+      "lastName": "Seller",
+      "role": "seller",
+      "isActive": true
+    },
+    {
+      "email": "seller3@vault-private.dev",
+      "password": "VaultPass123!",
+      "firstName": "Theo",
+      "lastName": "Seller",
+      "role": "seller",
+      "isActive": true
+    },
+    {
+      "email": "buyer1@vault-private.dev",
+      "password": "VaultPass123!",
+      "firstName": "Nina",
+      "lastName": "Buyer",
+      "role": "buyer",
+      "isActive": true
+    },
+    {
+      "email": "buyer2@vault-private.dev",
+      "password": "VaultPass123!",
+      "firstName": "Owen",
+      "lastName": "Buyer",
+      "role": "buyer",
+      "isActive": true
+    },
+    {
+      "email": "buyer3@vault-private.dev",
+      "password": "VaultPass123!",
+      "firstName": "Lena",
+      "lastName": "Buyer",
+      "role": "buyer",
+      "isActive": true
+    },
+    {
+      "email": "buyer4@vault-private.dev",
+      "password": "VaultPass123!",
+      "firstName": "Kai",
+      "lastName": "Buyer",
+      "role": "buyer",
+      "isActive": true
+    }
+  ],
+  "categories": [
+    {
+      "name": "Trading Cards",
+      "slug": "trading-cards-private",
+      "description": "Private seed variant: Sports, TCG, and collectible card singles.",
+      "isActive": true
+    },
+    {
+      "name": "Comics",
+      "slug": "comics-private",
+      "description": "Private seed variant: Slabbed and raw comic books.",
+      "isActive": true
+    },
+    {
+      "name": "Action Figures",
+      "slug": "action-figures-private",
+      "description": "Private seed variant: Modern and vintage figures.",
+      "isActive": true
+    },
+    {
+      "name": "Vinyl Toys",
+      "slug": "vinyl-toys-private",
+      "description": "Private seed variant: Designer vinyl and art toys.",
+      "isActive": true
+    },
+    {
+      "name": "Sealed Collectibles",
+      "slug": "sealed-collectibles-private",
+      "description": "Private seed variant: Unopened boxes, packs, and special editions.",
+      "isActive": true
+    }
+  ],
+  "listings": [
+    {
+      "sellerEmail": "seller1@vault-private.dev",
+      "categorySlug": "trading-cards-private",
+      "title": "Private Sample Trading Cards Item 1",
+      "slug": "sample-trading-cards-1-private",
+      "description": "Private dataset listing 1",
+      "itemType": "card",
+      "brandOrSeries": "Series 1",
+      "conditionLabel": "Near Mint",
+      "price": 15.0,
+      "shippingFee": 5.99,
+      "quantityAvailable": 0,
+      "status": "sold",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller2@vault-private.dev",
+      "categorySlug": "comics-private",
+      "title": "Private Sample Comics Item 2",
+      "slug": "sample-comics-2-private",
+      "description": "Private dataset listing 2",
+      "itemType": "comic",
+      "brandOrSeries": "Series 2",
+      "conditionLabel": "Very Good",
+      "price": 18.5,
+      "shippingFee": 5.99,
+      "quantityAvailable": 0,
+      "status": "sold",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller3@vault-private.dev",
+      "categorySlug": "action-figures-private",
+      "title": "Private Sample Action Figures Item 3",
+      "slug": "sample-action-figures-3-private",
+      "description": "Private dataset listing 3",
+      "itemType": "figure",
+      "brandOrSeries": "Series 3",
+      "conditionLabel": "Near Mint",
+      "price": 22.0,
+      "shippingFee": 5.99,
+      "quantityAvailable": 0,
+      "status": "sold",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller1@vault-private.dev",
+      "categorySlug": "vinyl-toys-private",
+      "title": "Private Sample Vinyl Toys Item 4",
+      "slug": "sample-vinyl-toys-4-private",
+      "description": "Private dataset listing 4",
+      "itemType": "toy",
+      "brandOrSeries": "Series 4",
+      "conditionLabel": "Very Good",
+      "price": 25.5,
+      "shippingFee": 5.99,
+      "quantityAvailable": 0,
+      "status": "sold",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller2@vault-private.dev",
+      "categorySlug": "sealed-collectibles-private",
+      "title": "Private Sample Sealed Collectibles Item 5",
+      "slug": "sample-sealed-collectibles-5-private",
+      "description": "Private dataset listing 5",
+      "itemType": "sealed",
+      "brandOrSeries": "Series 5",
+      "conditionLabel": "Near Mint",
+      "price": 29.0,
+      "shippingFee": 5.99,
+      "quantityAvailable": 0,
+      "status": "sold",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller3@vault-private.dev",
+      "categorySlug": "trading-cards-private",
+      "title": "Private Sample Trading Cards Item 6",
+      "slug": "sample-trading-cards-6-private",
+      "description": "Private dataset listing 6",
+      "itemType": "card",
+      "brandOrSeries": "Series 6",
+      "conditionLabel": "Very Good",
+      "price": 32.5,
+      "shippingFee": 5.99,
+      "quantityAvailable": 0,
+      "status": "sold",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller1@vault-private.dev",
+      "categorySlug": "comics-private",
+      "title": "Private Sample Comics Item 7",
+      "slug": "sample-comics-7-private",
+      "description": "Private dataset listing 7",
+      "itemType": "comic",
+      "brandOrSeries": "Series 7",
+      "conditionLabel": "Near Mint",
+      "price": 36.0,
+      "shippingFee": 5.99,
+      "quantityAvailable": 1,
+      "status": "active",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller2@vault-private.dev",
+      "categorySlug": "action-figures-private",
+      "title": "Private Sample Action Figures Item 8",
+      "slug": "sample-action-figures-8-private",
+      "description": "Private dataset listing 8",
+      "itemType": "figure",
+      "brandOrSeries": "Series 8",
+      "conditionLabel": "Very Good",
+      "price": 39.5,
+      "shippingFee": 5.99,
+      "quantityAvailable": 2,
+      "status": "active",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller3@vault-private.dev",
+      "categorySlug": "vinyl-toys-private",
+      "title": "Private Sample Vinyl Toys Item 9",
+      "slug": "sample-vinyl-toys-9-private",
+      "description": "Private dataset listing 9",
+      "itemType": "toy",
+      "brandOrSeries": "Series 9",
+      "conditionLabel": "Near Mint",
+      "price": 43.0,
+      "shippingFee": 5.99,
+      "quantityAvailable": 3,
+      "status": "active",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller1@vault-private.dev",
+      "categorySlug": "sealed-collectibles-private",
+      "title": "Private Sample Sealed Collectibles Item 10",
+      "slug": "sample-sealed-collectibles-10-private",
+      "description": "Private dataset listing 10",
+      "itemType": "sealed",
+      "brandOrSeries": "Series 10",
+      "conditionLabel": "Very Good",
+      "price": 46.5,
+      "shippingFee": 5.99,
+      "quantityAvailable": 1,
+      "status": "active",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller2@vault-private.dev",
+      "categorySlug": "trading-cards-private",
+      "title": "Private Sample Trading Cards Item 11",
+      "slug": "sample-trading-cards-11-private",
+      "description": "Private dataset listing 11",
+      "itemType": "card",
+      "brandOrSeries": "Series 11",
+      "conditionLabel": "Near Mint",
+      "price": 50.0,
+      "shippingFee": 5.99,
+      "quantityAvailable": 2,
+      "status": "active",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller3@vault-private.dev",
+      "categorySlug": "comics-private",
+      "title": "Private Sample Comics Item 12",
+      "slug": "sample-comics-12-private",
+      "description": "Private dataset listing 12",
+      "itemType": "comic",
+      "brandOrSeries": "Series 12",
+      "conditionLabel": "Very Good",
+      "price": 53.5,
+      "shippingFee": 5.99,
+      "quantityAvailable": 3,
+      "status": "active",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller1@vault-private.dev",
+      "categorySlug": "action-figures-private",
+      "title": "Private Sample Action Figures Item 13",
+      "slug": "sample-action-figures-13-private",
+      "description": "Private dataset listing 13",
+      "itemType": "figure",
+      "brandOrSeries": "Series 13",
+      "conditionLabel": "Near Mint",
+      "price": 57.0,
+      "shippingFee": 5.99,
+      "quantityAvailable": 1,
+      "status": "active",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller2@vault-private.dev",
+      "categorySlug": "vinyl-toys-private",
+      "title": "Private Sample Vinyl Toys Item 14",
+      "slug": "sample-vinyl-toys-14-private",
+      "description": "Private dataset listing 14",
+      "itemType": "toy",
+      "brandOrSeries": "Series 14",
+      "conditionLabel": "Very Good",
+      "price": 60.5,
+      "shippingFee": 5.99,
+      "quantityAvailable": 2,
+      "status": "active",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller3@vault-private.dev",
+      "categorySlug": "sealed-collectibles-private",
+      "title": "Private Sample Sealed Collectibles Item 15",
+      "slug": "sample-sealed-collectibles-15-private",
+      "description": "Private dataset listing 15",
+      "itemType": "sealed",
+      "brandOrSeries": "Series 15",
+      "conditionLabel": "Near Mint",
+      "price": 64.0,
+      "shippingFee": 5.99,
+      "quantityAvailable": 3,
+      "status": "active",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller1@vault-private.dev",
+      "categorySlug": "trading-cards-private",
+      "title": "Private Sample Trading Cards Item 16",
+      "slug": "sample-trading-cards-16-private",
+      "description": "Private dataset listing 16",
+      "itemType": "card",
+      "brandOrSeries": "Series 16",
+      "conditionLabel": "Very Good",
+      "price": 67.5,
+      "shippingFee": 5.99,
+      "quantityAvailable": 1,
+      "status": "active",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller2@vault-private.dev",
+      "categorySlug": "comics-private",
+      "title": "Private Sample Comics Item 17",
+      "slug": "sample-comics-17-private",
+      "description": "Private dataset listing 17",
+      "itemType": "comic",
+      "brandOrSeries": "Series 17",
+      "conditionLabel": "Near Mint",
+      "price": 71.0,
+      "shippingFee": 5.99,
+      "quantityAvailable": 2,
+      "status": "active",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller3@vault-private.dev",
+      "categorySlug": "action-figures-private",
+      "title": "Private Sample Action Figures Item 18",
+      "slug": "sample-action-figures-18-private",
+      "description": "Private dataset listing 18",
+      "itemType": "figure",
+      "brandOrSeries": "Series 18",
+      "conditionLabel": "Very Good",
+      "price": 74.5,
+      "shippingFee": 5.99,
+      "quantityAvailable": 3,
+      "status": "active",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    }
+  ],
+  "favorites": [
+    {
+      "userEmail": "buyer1@vault-private.dev",
+      "listingSlug": "sample-comics-7-private"
+    },
+    {
+      "userEmail": "buyer2@vault-private.dev",
+      "listingSlug": "sample-action-figures-8-private"
+    },
+    {
+      "userEmail": "buyer3@vault-private.dev",
+      "listingSlug": "sample-vinyl-toys-9-private"
+    },
+    {
+      "userEmail": "buyer4@vault-private.dev",
+      "listingSlug": "sample-sealed-collectibles-10-private"
+    },
+    {
+      "userEmail": "buyer1@vault-private.dev",
+      "listingSlug": "sample-trading-cards-11-private"
+    },
+    {
+      "userEmail": "buyer2@vault-private.dev",
+      "listingSlug": "sample-comics-12-private"
+    },
+    {
+      "userEmail": "buyer3@vault-private.dev",
+      "listingSlug": "sample-action-figures-13-private"
+    },
+    {
+      "userEmail": "buyer4@vault-private.dev",
+      "listingSlug": "sample-vinyl-toys-14-private"
+    }
+  ],
+  "orders": [
+    {
+      "buyerEmail": "buyer1@vault-private.dev",
+      "sellerEmail": "seller1@vault-private.dev",
+      "orderNumber": "CVPRV-2001",
+      "status": "delivered",
+      "subtotal": 15.0,
+      "shippingTotal": 5.99,
+      "grandTotal": 20.99,
+      "shipping": {
+        "fullName": "Demo Buyer",
+        "line1": "123 Main St",
+        "line2": "",
+        "city": "Seattle",
+        "state": "WA",
+        "postalCode": "98101",
+        "country": "US"
+      },
+      "trackingNumber": "TRACKPRV1",
+      "items": [
+        {
+          "listingSlug": "sample-trading-cards-1-private",
+          "title": "Private Sample Trading Cards Item 1",
+          "conditionLabel": "Near Mint",
+          "unitPrice": 15.0,
+          "quantity": 1,
+          "lineTotal": 15.0
+        }
+      ]
+    },
+    {
+      "buyerEmail": "buyer2@vault-private.dev",
+      "sellerEmail": "seller2@vault-private.dev",
+      "orderNumber": "CVPRV-2002",
+      "status": "delivered",
+      "subtotal": 18.5,
+      "shippingTotal": 5.99,
+      "grandTotal": 24.49,
+      "shipping": {
+        "fullName": "Demo Buyer",
+        "line1": "123 Main St",
+        "line2": "",
+        "city": "Seattle",
+        "state": "WA",
+        "postalCode": "98101",
+        "country": "US"
+      },
+      "trackingNumber": "TRACKPRV2",
+      "items": [
+        {
+          "listingSlug": "sample-comics-2-private",
+          "title": "Private Sample Comics Item 2",
+          "conditionLabel": "Very Good",
+          "unitPrice": 18.5,
+          "quantity": 1,
+          "lineTotal": 18.5
+        }
+      ]
+    },
+    {
+      "buyerEmail": "buyer3@vault-private.dev",
+      "sellerEmail": "seller3@vault-private.dev",
+      "orderNumber": "CVPRV-2003",
+      "status": "delivered",
+      "subtotal": 22.0,
+      "shippingTotal": 5.99,
+      "grandTotal": 27.99,
+      "shipping": {
+        "fullName": "Demo Buyer",
+        "line1": "123 Main St",
+        "line2": "",
+        "city": "Seattle",
+        "state": "WA",
+        "postalCode": "98101",
+        "country": "US"
+      },
+      "trackingNumber": "TRACKPRV3",
+      "items": [
+        {
+          "listingSlug": "sample-action-figures-3-private",
+          "title": "Private Sample Action Figures Item 3",
+          "conditionLabel": "Near Mint",
+          "unitPrice": 22.0,
+          "quantity": 1,
+          "lineTotal": 22.0
+        }
+      ]
+    },
+    {
+      "buyerEmail": "buyer4@vault-private.dev",
+      "sellerEmail": "seller1@vault-private.dev",
+      "orderNumber": "CVPRV-2004",
+      "status": "delivered",
+      "subtotal": 25.5,
+      "shippingTotal": 5.99,
+      "grandTotal": 31.49,
+      "shipping": {
+        "fullName": "Demo Buyer",
+        "line1": "123 Main St",
+        "line2": "",
+        "city": "Seattle",
+        "state": "WA",
+        "postalCode": "98101",
+        "country": "US"
+      },
+      "trackingNumber": "TRACKPRV4",
+      "items": [
+        {
+          "listingSlug": "sample-vinyl-toys-4-private",
+          "title": "Private Sample Vinyl Toys Item 4",
+          "conditionLabel": "Very Good",
+          "unitPrice": 25.5,
+          "quantity": 1,
+          "lineTotal": 25.5
+        }
+      ]
+    },
+    {
+      "buyerEmail": "buyer1@vault-private.dev",
+      "sellerEmail": "seller2@vault-private.dev",
+      "orderNumber": "CVPRV-2005",
+      "status": "delivered",
+      "subtotal": 29.0,
+      "shippingTotal": 5.99,
+      "grandTotal": 34.99,
+      "shipping": {
+        "fullName": "Demo Buyer",
+        "line1": "123 Main St",
+        "line2": "",
+        "city": "Seattle",
+        "state": "WA",
+        "postalCode": "98101",
+        "country": "US"
+      },
+      "trackingNumber": "TRACKPRV5",
+      "items": [
+        {
+          "listingSlug": "sample-sealed-collectibles-5-private",
+          "title": "Private Sample Sealed Collectibles Item 5",
+          "conditionLabel": "Near Mint",
+          "unitPrice": 29.0,
+          "quantity": 1,
+          "lineTotal": 29.0
+        }
+      ]
+    },
+    {
+      "buyerEmail": "buyer2@vault-private.dev",
+      "sellerEmail": "seller3@vault-private.dev",
+      "orderNumber": "CVPRV-2006",
+      "status": "delivered",
+      "subtotal": 32.5,
+      "shippingTotal": 5.99,
+      "grandTotal": 38.49,
+      "shipping": {
+        "fullName": "Demo Buyer",
+        "line1": "123 Main St",
+        "line2": "",
+        "city": "Seattle",
+        "state": "WA",
+        "postalCode": "98101",
+        "country": "US"
+      },
+      "trackingNumber": "TRACKPRV6",
+      "items": [
+        {
+          "listingSlug": "sample-trading-cards-6-private",
+          "title": "Private Sample Trading Cards Item 6",
+          "conditionLabel": "Very Good",
+          "unitPrice": 32.5,
+          "quantity": 1,
+          "lineTotal": 32.5
+        }
+      ]
+    }
+  ]
+}

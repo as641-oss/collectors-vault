@@ -1,0 +1,582 @@
+{
+  "users": [
+    {
+      "email": "admin@collectorsvault.dev",
+      "password": "Password123!",
+      "firstName": "Ava",
+      "lastName": "Admin",
+      "role": "admin",
+      "isActive": true
+    },
+    {
+      "email": "seller1@collectorsvault.dev",
+      "password": "Password123!",
+      "firstName": "Milo",
+      "lastName": "Seller",
+      "role": "seller",
+      "isActive": true
+    },
+    {
+      "email": "seller2@collectorsvault.dev",
+      "password": "Password123!",
+      "firstName": "Jade",
+      "lastName": "Seller",
+      "role": "seller",
+      "isActive": true
+    },
+    {
+      "email": "seller3@collectorsvault.dev",
+      "password": "Password123!",
+      "firstName": "Theo",
+      "lastName": "Seller",
+      "role": "seller",
+      "isActive": true
+    },
+    {
+      "email": "buyer1@collectorsvault.dev",
+      "password": "Password123!",
+      "firstName": "Nina",
+      "lastName": "Buyer",
+      "role": "buyer",
+      "isActive": true
+    },
+    {
+      "email": "buyer2@collectorsvault.dev",
+      "password": "Password123!",
+      "firstName": "Owen",
+      "lastName": "Buyer",
+      "role": "buyer",
+      "isActive": true
+    },
+    {
+      "email": "buyer3@collectorsvault.dev",
+      "password": "Password123!",
+      "firstName": "Lena",
+      "lastName": "Buyer",
+      "role": "buyer",
+      "isActive": true
+    },
+    {
+      "email": "buyer4@collectorsvault.dev",
+      "password": "Password123!",
+      "firstName": "Kai",
+      "lastName": "Buyer",
+      "role": "buyer",
+      "isActive": true
+    }
+  ],
+  "categories": [
+    {
+      "name": "Trading Cards",
+      "slug": "trading-cards",
+      "description": "Sports, TCG, and collectible card singles.",
+      "isActive": true
+    },
+    {
+      "name": "Comics",
+      "slug": "comics",
+      "description": "Slabbed and raw comic books.",
+      "isActive": true
+    },
+    {
+      "name": "Action Figures",
+      "slug": "action-figures",
+      "description": "Modern and vintage figures.",
+      "isActive": true
+    },
+    {
+      "name": "Vinyl Toys",
+      "slug": "vinyl-toys",
+      "description": "Designer vinyl and art toys.",
+      "isActive": true
+    },
+    {
+      "name": "Sealed Collectibles",
+      "slug": "sealed-collectibles",
+      "description": "Unopened boxes, packs, and special editions.",
+      "isActive": true
+    }
+  ],
+  "listings": [
+    {
+      "sellerEmail": "seller1@collectorsvault.dev",
+      "categorySlug": "trading-cards",
+      "title": "Sample Trading Cards Item 1",
+      "slug": "sample-trading-cards-1",
+      "description": "Demo collectible listing 1 in trading-cards.",
+      "itemType": "card",
+      "brandOrSeries": "Series 1",
+      "conditionLabel": "Near Mint",
+      "price": 15.0,
+      "shippingFee": 5.99,
+      "quantityAvailable": 0,
+      "status": "sold",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller2@collectorsvault.dev",
+      "categorySlug": "comics",
+      "title": "Sample Comics Item 2",
+      "slug": "sample-comics-2",
+      "description": "Demo collectible listing 2 in comics.",
+      "itemType": "comic",
+      "brandOrSeries": "Series 2",
+      "conditionLabel": "Very Good",
+      "price": 18.5,
+      "shippingFee": 5.99,
+      "quantityAvailable": 0,
+      "status": "sold",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller3@collectorsvault.dev",
+      "categorySlug": "action-figures",
+      "title": "Sample Action Figures Item 3",
+      "slug": "sample-action-figures-3",
+      "description": "Demo collectible listing 3 in action-figures.",
+      "itemType": "figure",
+      "brandOrSeries": "Series 3",
+      "conditionLabel": "Near Mint",
+      "price": 22.0,
+      "shippingFee": 5.99,
+      "quantityAvailable": 0,
+      "status": "sold",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller1@collectorsvault.dev",
+      "categorySlug": "vinyl-toys",
+      "title": "Sample Vinyl Toys Item 4",
+      "slug": "sample-vinyl-toys-4",
+      "description": "Demo collectible listing 4 in vinyl-toys.",
+      "itemType": "toy",
+      "brandOrSeries": "Series 4",
+      "conditionLabel": "Very Good",
+      "price": 25.5,
+      "shippingFee": 5.99,
+      "quantityAvailable": 0,
+      "status": "sold",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller2@collectorsvault.dev",
+      "categorySlug": "sealed-collectibles",
+      "title": "Sample Sealed Collectibles Item 5",
+      "slug": "sample-sealed-collectibles-5",
+      "description": "Demo collectible listing 5 in sealed-collectibles.",
+      "itemType": "sealed",
+      "brandOrSeries": "Series 5",
+      "conditionLabel": "Near Mint",
+      "price": 29.0,
+      "shippingFee": 5.99,
+      "quantityAvailable": 0,
+      "status": "sold",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller3@collectorsvault.dev",
+      "categorySlug": "trading-cards",
+      "title": "Sample Trading Cards Item 6",
+      "slug": "sample-trading-cards-6",
+      "description": "Demo collectible listing 6 in trading-cards.",
+      "itemType": "card",
+      "brandOrSeries": "Series 6",
+      "conditionLabel": "Very Good",
+      "price": 32.5,
+      "shippingFee": 5.99,
+      "quantityAvailable": 0,
+      "status": "sold",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller1@collectorsvault.dev",
+      "categorySlug": "comics",
+      "title": "Sample Comics Item 7",
+      "slug": "sample-comics-7",
+      "description": "Demo collectible listing 7 in comics.",
+      "itemType": "comic",
+      "brandOrSeries": "Series 7",
+      "conditionLabel": "Near Mint",
+      "price": 36.0,
+      "shippingFee": 5.99,
+      "quantityAvailable": 1,
+      "status": "active",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller2@collectorsvault.dev",
+      "categorySlug": "action-figures",
+      "title": "Sample Action Figures Item 8",
+      "slug": "sample-action-figures-8",
+      "description": "Demo collectible listing 8 in action-figures.",
+      "itemType": "figure",
+      "brandOrSeries": "Series 8",
+      "conditionLabel": "Very Good",
+      "price": 39.5,
+      "shippingFee": 5.99,
+      "quantityAvailable": 2,
+      "status": "active",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller3@collectorsvault.dev",
+      "categorySlug": "vinyl-toys",
+      "title": "Sample Vinyl Toys Item 9",
+      "slug": "sample-vinyl-toys-9",
+      "description": "Demo collectible listing 9 in vinyl-toys.",
+      "itemType": "toy",
+      "brandOrSeries": "Series 9",
+      "conditionLabel": "Near Mint",
+      "price": 43.0,
+      "shippingFee": 5.99,
+      "quantityAvailable": 3,
+      "status": "active",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller1@collectorsvault.dev",
+      "categorySlug": "sealed-collectibles",
+      "title": "Sample Sealed Collectibles Item 10",
+      "slug": "sample-sealed-collectibles-10",
+      "description": "Demo collectible listing 10 in sealed-collectibles.",
+      "itemType": "sealed",
+      "brandOrSeries": "Series 10",
+      "conditionLabel": "Very Good",
+      "price": 46.5,
+      "shippingFee": 5.99,
+      "quantityAvailable": 1,
+      "status": "active",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller2@collectorsvault.dev",
+      "categorySlug": "trading-cards",
+      "title": "Sample Trading Cards Item 11",
+      "slug": "sample-trading-cards-11",
+      "description": "Demo collectible listing 11 in trading-cards.",
+      "itemType": "card",
+      "brandOrSeries": "Series 11",
+      "conditionLabel": "Near Mint",
+      "price": 50.0,
+      "shippingFee": 5.99,
+      "quantityAvailable": 2,
+      "status": "active",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller3@collectorsvault.dev",
+      "categorySlug": "comics",
+      "title": "Sample Comics Item 12",
+      "slug": "sample-comics-12",
+      "description": "Demo collectible listing 12 in comics.",
+      "itemType": "comic",
+      "brandOrSeries": "Series 12",
+      "conditionLabel": "Very Good",
+      "price": 53.5,
+      "shippingFee": 5.99,
+      "quantityAvailable": 3,
+      "status": "active",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller1@collectorsvault.dev",
+      "categorySlug": "action-figures",
+      "title": "Sample Action Figures Item 13",
+      "slug": "sample-action-figures-13",
+      "description": "Demo collectible listing 13 in action-figures.",
+      "itemType": "figure",
+      "brandOrSeries": "Series 13",
+      "conditionLabel": "Near Mint",
+      "price": 57.0,
+      "shippingFee": 5.99,
+      "quantityAvailable": 1,
+      "status": "active",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller2@collectorsvault.dev",
+      "categorySlug": "vinyl-toys",
+      "title": "Sample Vinyl Toys Item 14",
+      "slug": "sample-vinyl-toys-14",
+      "description": "Demo collectible listing 14 in vinyl-toys.",
+      "itemType": "toy",
+      "brandOrSeries": "Series 14",
+      "conditionLabel": "Very Good",
+      "price": 60.5,
+      "shippingFee": 5.99,
+      "quantityAvailable": 2,
+      "status": "active",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller3@collectorsvault.dev",
+      "categorySlug": "sealed-collectibles",
+      "title": "Sample Sealed Collectibles Item 15",
+      "slug": "sample-sealed-collectibles-15",
+      "description": "Demo collectible listing 15 in sealed-collectibles.",
+      "itemType": "sealed",
+      "brandOrSeries": "Series 15",
+      "conditionLabel": "Near Mint",
+      "price": 64.0,
+      "shippingFee": 5.99,
+      "quantityAvailable": 3,
+      "status": "active",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller1@collectorsvault.dev",
+      "categorySlug": "trading-cards",
+      "title": "Sample Trading Cards Item 16",
+      "slug": "sample-trading-cards-16",
+      "description": "Demo collectible listing 16 in trading-cards.",
+      "itemType": "card",
+      "brandOrSeries": "Series 16",
+      "conditionLabel": "Very Good",
+      "price": 67.5,
+      "shippingFee": 5.99,
+      "quantityAvailable": 1,
+      "status": "active",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller2@collectorsvault.dev",
+      "categorySlug": "comics",
+      "title": "Sample Comics Item 17",
+      "slug": "sample-comics-17",
+      "description": "Demo collectible listing 17 in comics.",
+      "itemType": "comic",
+      "brandOrSeries": "Series 17",
+      "conditionLabel": "Near Mint",
+      "price": 71.0,
+      "shippingFee": 5.99,
+      "quantityAvailable": 2,
+      "status": "active",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    },
+    {
+      "sellerEmail": "seller3@collectorsvault.dev",
+      "categorySlug": "action-figures",
+      "title": "Sample Action Figures Item 18",
+      "slug": "sample-action-figures-18",
+      "description": "Demo collectible listing 18 in action-figures.",
+      "itemType": "figure",
+      "brandOrSeries": "Series 18",
+      "conditionLabel": "Very Good",
+      "price": 74.5,
+      "shippingFee": 5.99,
+      "quantityAvailable": 3,
+      "status": "active",
+      "coverImageUrl": "https://placehold.co/600x400?text=Collectible"
+    }
+  ],
+  "favorites": [
+    {
+      "userEmail": "buyer1@collectorsvault.dev",
+      "listingSlug": "sample-comics-7"
+    },
+    {
+      "userEmail": "buyer2@collectorsvault.dev",
+      "listingSlug": "sample-action-figures-8"
+    },
+    {
+      "userEmail": "buyer3@collectorsvault.dev",
+      "listingSlug": "sample-vinyl-toys-9"
+    },
+    {
+      "userEmail": "buyer4@collectorsvault.dev",
+      "listingSlug": "sample-sealed-collectibles-10"
+    },
+    {
+      "userEmail": "buyer1@collectorsvault.dev",
+      "listingSlug": "sample-trading-cards-11"
+    },
+    {
+      "userEmail": "buyer2@collectorsvault.dev",
+      "listingSlug": "sample-comics-12"
+    },
+    {
+      "userEmail": "buyer3@collectorsvault.dev",
+      "listingSlug": "sample-action-figures-13"
+    },
+    {
+      "userEmail": "buyer4@collectorsvault.dev",
+      "listingSlug": "sample-vinyl-toys-14"
+    }
+  ],
+  "orders": [
+    {
+      "buyerEmail": "buyer1@collectorsvault.dev",
+      "sellerEmail": "seller1@collectorsvault.dev",
+      "orderNumber": "CVPUB-1001",
+      "status": "delivered",
+      "subtotal": 15.0,
+      "shippingTotal": 5.99,
+      "grandTotal": 20.99,
+      "shipping": {
+        "fullName": "Demo Buyer",
+        "line1": "123 Main St",
+        "line2": "",
+        "city": "Seattle",
+        "state": "WA",
+        "postalCode": "98101",
+        "country": "US"
+      },
+      "trackingNumber": "TRACKPUB1",
+      "items": [
+        {
+          "listingSlug": "sample-trading-cards-1",
+          "title": "Sample Trading Cards Item 1",
+          "conditionLabel": "Near Mint",
+          "unitPrice": 15.0,
+          "quantity": 1,
+          "lineTotal": 15.0
+        }
+      ]
+    },
+    {
+      "buyerEmail": "buyer2@collectorsvault.dev",
+      "sellerEmail": "seller2@collectorsvault.dev",
+      "orderNumber": "CVPUB-1002",
+      "status": "delivered",
+      "subtotal": 18.5,
+      "shippingTotal": 5.99,
+      "grandTotal": 24.49,
+      "shipping": {
+        "fullName": "Demo Buyer",
+        "line1": "123 Main St",
+        "line2": "",
+        "city": "Seattle",
+        "state": "WA",
+        "postalCode": "98101",
+        "country": "US"
+      },
+      "trackingNumber": "TRACKPUB2",
+      "items": [
+        {
+          "listingSlug": "sample-comics-2",
+          "title": "Sample Comics Item 2",
+          "conditionLabel": "Very Good",
+          "unitPrice": 18.5,
+          "quantity": 1,
+          "lineTotal": 18.5
+        }
+      ]
+    },
+    {
+      "buyerEmail": "buyer3@collectorsvault.dev",
+      "sellerEmail": "seller3@collectorsvault.dev",
+      "orderNumber": "CVPUB-1003",
+      "status": "delivered",
+      "subtotal": 22.0,
+      "shippingTotal": 5.99,
+      "grandTotal": 27.99,
+      "shipping": {
+        "fullName": "Demo Buyer",
+        "line1": "123 Main St",
+        "line2": "",
+        "city": "Seattle",
+        "state": "WA",
+        "postalCode": "98101",
+        "country": "US"
+      },
+      "trackingNumber": "TRACKPUB3",
+      "items": [
+        {
+          "listingSlug": "sample-action-figures-3",
+          "title": "Sample Action Figures Item 3",
+          "conditionLabel": "Near Mint",
+          "unitPrice": 22.0,
+          "quantity": 1,
+          "lineTotal": 22.0
+        }
+      ]
+    },
+    {
+      "buyerEmail": "buyer4@collectorsvault.dev",
+      "sellerEmail": "seller1@collectorsvault.dev",
+      "orderNumber": "CVPUB-1004",
+      "status": "delivered",
+      "subtotal": 25.5,
+      "shippingTotal": 5.99,
+      "grandTotal": 31.49,
+      "shipping": {
+        "fullName": "Demo Buyer",
+        "line1": "123 Main St",
+        "line2": "",
+        "city": "Seattle",
+        "state": "WA",
+        "postalCode": "98101",
+        "country": "US"
+      },
+      "trackingNumber": "TRACKPUB4",
+      "items": [
+        {
+          "listingSlug": "sample-vinyl-toys-4",
+          "title": "Sample Vinyl Toys Item 4",
+          "conditionLabel": "Very Good",
+          "unitPrice": 25.5,
+          "quantity": 1,
+          "lineTotal": 25.5
+        }
+      ]
+    },
+    {
+      "buyerEmail": "buyer1@collectorsvault.dev",
+      "sellerEmail": "seller2@collectorsvault.dev",
+      "orderNumber": "CVPUB-1005",
+      "status": "delivered",
+      "subtotal": 29.0,
+      "shippingTotal": 5.99,
+      "grandTotal": 34.99,
+      "shipping": {
+        "fullName": "Demo Buyer",
+        "line1": "123 Main St",
+        "line2": "",
+        "city": "Seattle",
+        "state": "WA",
+        "postalCode": "98101",
+        "country": "US"
+      },
+      "trackingNumber": "TRACKPUB5",
+      "items": [
+        {
+          "listingSlug": "sample-sealed-collectibles-5",
+          "title": "Sample Sealed Collectibles Item 5",
+          "conditionLabel": "Near Mint",
+          "unitPrice": 29.0,
+          "quantity": 1,
+          "lineTotal": 29.0
+        }
+      ]
+    },
+    {
+      "buyerEmail": "buyer2@collectorsvault.dev",
+      "sellerEmail": "seller3@collectorsvault.dev",
+      "orderNumber": "CVPUB-1006",
+      "status": "delivered",
+      "subtotal": 32.5,
+      "shippingTotal": 5.99,
+      "grandTotal": 38.49,
+      "shipping": {
+        "fullName": "Demo Buyer",
+        "line1": "123 Main St",
+        "line2": "",
+        "city": "Seattle",
+        "state": "WA",
+        "postalCode": "98101",
+        "country": "US"
+      },
+      "trackingNumber": "TRACKPUB6",
+      "items": [
+        {
+          "listingSlug": "sample-trading-cards-6",
+          "title": "Sample Trading Cards Item 6",
+          "conditionLabel": "Very Good",
+          "unitPrice": 32.5,
+          "quantity": 1,
+          "lineTotal": 32.5
+        }
+      ]
+    }
+  ]
+}
