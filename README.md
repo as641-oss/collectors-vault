@@ -86,8 +86,16 @@ collectors-vault/
 
 The easiest way to run the full stack locally is with Docker.
 
+- Public
+
 ```bash
 docker compose up --build
+```
+
+- Private
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.private.yml up --build
 ```
 
 Services started:
