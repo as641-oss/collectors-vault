@@ -6,7 +6,7 @@ test.describe('Task 5 - Offers System', () => {
   test('buyer can submit an offer on a listing', async ({ page }) => {
     await page.goto('http://localhost/login');
 
-    await page.getByPlaceholder('Email').fill('buyer1@collectorsvault.dev');
+    await page.getByPlaceholder('Email').fill('buyer1@vault-private.dev');
     await page.getByPlaceholder('Password').fill('VaultPass123!');
     await page.locator('button.gold-btn').click();
 
