@@ -29,6 +29,8 @@ test.describe('Task 5 - Offers System', () => {
 
     await page.getByRole('button', { name: /make offer/i }).click();
 
+   await page.getByRole('button', { name: /make offer/i }).click();
+
     const offerInput = page.locator('input[name="amount"], input[type="number"]').first();
     await expect(offerInput).toBeVisible();
 
