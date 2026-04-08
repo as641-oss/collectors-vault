@@ -118,7 +118,7 @@ router.put('/:id', requireAuth, requireRole('seller', 'admin'), async (req, res)
         cover_image_url=:coverImageUrl,
         status=:status,
         updated_at=NOW()
-    WHERE id=:id AND (seller_id=:sellerId OR :isAdmin=1)`,
+    WHERE id=:id`,
     {
       id: req.params.id,
       categoryId: body.categoryId,
