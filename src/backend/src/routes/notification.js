@@ -26,6 +26,31 @@ router.get('/', async (req, res) => {
   res.json(rows);
 });
 
+
+router.get('/:id', async (req, res) => {
+  const rows = await query(
+    `SELECT
+      id,
+      type,
+      title,
+      message,
+      link,
+      is_read AS isRead,
+      created_at AS createdAt
+     FROM notifications
+     WHERE id = :id`,
+    {
+      id: req.params.id,
+    }
+  );
+
+  if (!rows.length) {
+    return res.status(404).json({ error: 'Notification not found' });
+  }
+
+  res.json(rows[0]);
+});
+
 router.get('/unread-count', async (req, res) => {
   const rows = await query(
     `SELECT COUNT(*) AS count
