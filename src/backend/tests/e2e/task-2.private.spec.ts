@@ -5,8 +5,8 @@ test.describe('Task 2 - Listing Image Upload', () => {
 
     await page.goto('http://localhost/login');
 
-    await page.getByPlaceholder('Email').fill('seller1@vault-private.dev');
-    await page.getByPlaceholder('Password').fill('VaultPass123!');
+    await page.getByPlaceholder('Email').fill('seller1@collectorsvault.dev');
+    await page.getByPlaceholder('Password').fill('Password123!');
 
     await Promise.all([
       page.waitForLoadState('networkidle'),
